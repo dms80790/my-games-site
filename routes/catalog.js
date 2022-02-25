@@ -40,13 +40,13 @@ router.get('/gameinstance/:id/delete', gameinstance_controller.get_gameinstance_
 router.post('/gameinstance/:id/delete', gameinstance_controller.post_gameinstance_delete);
 
 //genre routes
-router.get('/genre', genre_controller.get_genre_list);
-router.get('/genre/:id/', genre_controller.get_genre);
 router.get('/genre/create', genre_controller.get_genre_create);
 router.post('/genre/create', genre_controller.post_genre_create);
 router.get('/genre/:id/update', genre_controller.get_genre_update);
 router.post('/genre/:id/update', genre_controller.post_genre_update);
 router.get('/genre/:id/delete', genre_controller.get_genre_delete);
 router.post('/genre/:id/delete', genre_controller.post_genre_delete);
+router.get('/genre/:id/', genre_controller.get_genre);
+router.get('/genre', genre_controller.get_genre_list);
 
 module.exports = router;

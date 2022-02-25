@@ -8,7 +8,8 @@ exports.get_genre = function(req, res, next){
 }
 
 exports.get_genre_create = function(req, res, next){
-  res.send('not implemented yet.');
+  console.log('rendering genre form')
+  return res.render('genre_form', {title: 'Create Genre'});
 }
 
 exports.post_genre_create = function(req, res, next){

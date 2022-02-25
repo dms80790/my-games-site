@@ -6,44 +6,49 @@ const publisher_controller = require('../controllers/publisherController');
 const gameinstance_controller = require('../controllers/gameInstanceController');
 const genre_controller = require('../controllers/genreController');
 
+//home page route
+router.get('/', function(req, res, next){
+  res.render('index', {title: 'Game Library Home'});
+});
+
 //publisher routes
-router.get('/publishers', publisher_controller.get_publisher_list);
-router.get('/publishers/:id/', publisher_controller.get_publisher);
-router.get('/publishers/create', publisher_controller.get_publisher_create);
-router.post('/publishers/create', publisher_controller.post_publisher_create);
-router.get('/publishers/:id/update', publisher_controller.get_publisher_update);
-router.post('/publishers/:id/update', publisher_controller.post_publisher_update);
-router.get('/publishers/:id/delete', publisher_controller.get_publisher_delete);
-router.post('/publishers/:id/delete', publisher_controller.post_publisher_delete);
+router.get('/publisher', publisher_controller.get_publisher_list);
+router.get('/publisher/:id/', publisher_controller.get_publisher);
+router.get('/publisher/create', publisher_controller.get_publisher_create);
+router.post('/publisher/create', publisher_controller.post_publisher_create);
+router.get('/publisher/:id/update', publisher_controller.get_publisher_update);
+router.post('/publisher/:id/update', publisher_controller.post_publisher_update);
+router.get('/publisher/:id/delete', publisher_controller.get_publisher_delete);
+router.post('/publisher/:id/delete', publisher_controller.post_publisher_delete);
 
 //game routes
-router.get('/games', game_controller.get_game_list);
-router.get('/games/:id/', game_controller.get_game);
-router.get('/games/create', game_controller.get_game_create);
-router.post('/games/create', game_controller.post_game_create);
-router.get('/games/:id/update', game_controller.get_game_update);
-router.post('/games/:id/update', game_controller.post_game_update);
-router.get('/games/:id/delete', game_controller.get_game_delete);
-router.post('/games/:id/delete', game_controller.post_game_delete);
+router.get('/game', game_controller.get_game_list);
+router.get('/game/:id/', game_controller.get_game);
+router.get('/game/create', game_controller.get_game_create);
+router.post('/game/create', game_controller.post_game_create);
+router.get('/game/:id/update', game_controller.get_game_update);
+router.post('/game/:id/update', game_controller.post_game_update);
+router.get('/game/:id/delete', game_controller.get_game_delete);
+router.post('/game/:id/delete', game_controller.post_game_delete);
 
 //game instance routes
-router.get('/gameinstances', gameinstance_controller.get_gameinstance_list);
-router.get('/gameinstances/:id/', gameinstance_controller.get_gameinstance);
-router.get('/gameinstances/create', gameinstance_controller.get_gameinstance_create);
-router.post('/gameinstances/create', gameinstance_controller.post_gameinstance_create);
-router.get('/gameinstances/:id/update', gameinstance_controller.get_gameinstance_update);
-router.post('/gameinstances/:id/update', gameinstance_controller.post_gameinstance_update);
-router.get('/gameinstances/:id/delete', gameinstance_controller.get_gameinstance_delete);
-router.post('/gameinstances/:id/delete', gameinstance_controller.post_gameinstance_delete);
+router.get('/gameinstance', gameinstance_controller.get_gameinstance_list);
+router.get('/gameinstance/:id/', gameinstance_controller.get_gameinstance);
+router.get('/gameinstance/create', gameinstance_controller.get_gameinstance_create);
+router.post('/gameinstance/create', gameinstance_controller.post_gameinstance_create);
+router.get('/gameinstance/:id/update', gameinstance_controller.get_gameinstance_update);
+router.post('/gameinstance/:id/update', gameinstance_controller.post_gameinstance_update);
+router.get('/gameinstance/:id/delete', gameinstance_controller.get_gameinstance_delete);
+router.post('/gameinstance/:id/delete', gameinstance_controller.post_gameinstance_delete);
 
 //genre routes
-router.get('/genres', genre_controller.get_genre_list);
-router.get('/genres/:id/', genre_controller.get_genre);
-router.get('/genres/create', genre_controller.get_genre_create);
-router.post('/genres/create', genre_controller.post_genre_create);
-router.get('/genres/:id/update', genre_controller.get_genre_update);
-router.post('/genres/:id/update', genre_controller.post_genre_update);
-router.get('/genres/:id/delete', genre_controller.get_genre_delete);
-router.post('/genres/:id/delete', genre_controller.post_genre_delete);
+router.get('/genre', genre_controller.get_genre_list);
+router.get('/genre/:id/', genre_controller.get_genre);
+router.get('/genre/create', genre_controller.get_genre_create);
+router.post('/genre/create', genre_controller.post_genre_create);
+router.get('/genre/:id/update', genre_controller.get_genre_update);
+router.post('/genre/:id/update', genre_controller.post_genre_update);
+router.get('/genre/:id/delete', genre_controller.get_genre_delete);
+router.post('/genre/:id/delete', genre_controller.post_genre_delete);
 
 module.exports = router;

@@ -7,9 +7,7 @@ const gameinstance_controller = require('../controllers/gameInstanceController')
 const genre_controller = require('../controllers/genreController');
 
 //home page route
-router.get('/', function(req, res, next){
-  res.render('index', {title: 'Game Library Home'});
-});
+router.get('/', publisher_controller.get_home_page);
 
 //publisher routes
 router.get('/publisher', publisher_controller.get_publisher_list);

@@ -14,6 +14,13 @@ const app = express();
 const router = express.Router();
 
 //database connection
+const mongoDB = 'mongodb+srv://admin:pass@cluster0.ubgm1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

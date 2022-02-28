@@ -6,4 +6,8 @@ const PublisherSchema = new Schema({
   location: {type: String, required: true},
 });
 
+PublisherSchema.virtual('url').get(function(){
+  return '/catalog/publisher/' + this._id;
+});
+
 module.exports = mongoose.model('Publisher', PublisherSchema);

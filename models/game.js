@@ -10,5 +10,9 @@ const GameSchema = new Schema({
   platform: {type: Schema.Types.ObjectId, ref: 'Platform'}
 });
 
+GameSchema.virtual('url').get(function(){
+  return '/catalog/game/' + this._id;
+});
+
 //create the model from the schema and export
 module.exports = mongoose.model('Game', GameSchema);

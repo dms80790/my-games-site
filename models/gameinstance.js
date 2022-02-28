@@ -8,4 +8,8 @@ const GameInstanceSchema = new Schema({
   due_date: {type: Date, required: true, default: Date.now}
 });
 
+GameInstanceSchema.virtual('url').get(function(){
+  return '/catalog/gameinstance/' + this._id;
+});
+
 module.exports = mongoose.model('Game Instance', GameInstanceSchema);

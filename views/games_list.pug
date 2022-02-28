@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+
+  div(margin-left:20px, margin-top:20px)
+    dl
+      each game in games_list
+        dt
+          a(href=game.url) #{game.title}
+        dd
+          #{game.summary}
+
+      else
+        p There are no games in the library

@@ -1,6 +1,19 @@
+const Game = require('../models/game');
+const Genre = require('../models/genre');
+const Publisher = require('../models/publisher');
+const Platform = require('../models/platform');
+
 //game routes
 exports.get_game_list = function(req, res, next){
-  res.send('not implemented yet.');
+  Game.find({})
+      .populate('genre')
+      .populate('publisher')
+      .populate('platform')
+      .sort({name: 1})
+      .exec(function(err, games){
+        if(err){ return next(err); }
+        res.render('games_list', {title: 'Game List', games_list: games})
+      });
 }
 
 exports.get_game = function(req, res, next){

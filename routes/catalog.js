@@ -5,6 +5,7 @@ const game_controller = require('../controllers/gameController');
 const publisher_controller = require('../controllers/publisherController');
 const gameinstance_controller = require('../controllers/gameInstanceController');
 const genre_controller = require('../controllers/genreController');
+const platform_controller = require('../controllers/platformController');
 
 //home page route
 router.get('/', publisher_controller.get_home_page);
@@ -18,6 +19,16 @@ router.get('/publisher/:id/delete', publisher_controller.get_publisher_delete);
 router.post('/publisher/:id/delete', publisher_controller.post_publisher_delete);
 router.get('/publisher/:id/', publisher_controller.get_publisher);
 router.get('/publishers', publisher_controller.get_publisher_list);
+
+//platform routes
+router.get('/platform/create', platform_controller.get_platform_create);
+router.post('/platform/create', platform_controller.post_platform_create);
+router.get('/platform/:id/update', platform_controller.get_platform_update);
+router.post('/platform/:id/update', platform_controller.post_platform_update);
+router.get('/platform/:id/delete', platform_controller.get_platform_delete);
+router.post('/platform/:id/delete', platform_controller.post_platform_delete);
+router.get('/platform/:id/', platform_controller.get_platform);
+router.get('/platforms', platform_controller.get_platform_list);
 
 //game routes
 router.get('/game/create', game_controller.get_game_create);

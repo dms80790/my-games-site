@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+
+  dl
+    each publisher in publisher_list
+      dt
+        a(href=publisher.url) #{publisher.name}
+      dd
+        strong Location:
+        span #{publisher.location}
+    else
+      p There are no publishers in the library.

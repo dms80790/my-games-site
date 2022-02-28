@@ -5,8 +5,13 @@ const async = require('async');
 
 //genre routes
 exports.get_genre_list = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  Genre.find({})
+       .sort([['name', 'ascending']])
+       .exec(function(err, genres){
+         if(err){ return next(err); }
+         res.render('genre_list', {title: 'Genres', genre_list: genres});
+       });
+};
 
 exports.get_genre = function(req, res, next){
   async.parallel({

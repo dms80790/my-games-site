@@ -2,6 +2,7 @@ const Game = require('../models/game');
 const Genre = require('../models/genre');
 const Publisher = require('../models/publisher');
 const Platform = require('../models/platform');
+const async = require('async');
 
 //game routes
 exports.get_game_list = function(req, res, next){
@@ -28,8 +29,19 @@ exports.get_game = function(req, res, next){
 }
 
 exports.get_game_create = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  async.parallel({
+    publishers: function(callback){
+      Publisher.find({}, callback);
+    }, platforms: function(callback){
+      Platform.find({}, callback);
+    }, genres: function(callback){
+      Genre.find({}, callback);
+    }
+  }, function(err, results){
+      if(err){ return next(err); }
+      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres});
+    }
+)};
 
 exports.post_game_create = function(req, res, next){
   res.send('not implemented yet.');

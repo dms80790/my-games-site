@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1=title
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='title') Title
+      input#title.form-control(type='text' name='title' required placeholder='Enter game title')
+
+      label(for='description') Summary
+      textArea#description.form-control(type='text' rows='4' cols='60' required placeholder='Enter a brief summary:')
+
+      label(for='genre') Genre
+      input#genre.form-control(type='text' required placeholder='Enter game title')
+
+      label(for='publisher') Publisher
+      select#publisher.form-control(placeholder='Select Publisher' required type='select' name='publisher')
+        each publisher in publisher_list
+          option(value=publisher._id) #{publisher.name}
+
+      label(for='platform') Platform
+      select#platform.form-control(placeholder='Select Platform' required type='select' name='platform')
+        each platform in platform_list
+          option(value=platform._id) #{platform.name}
+
+      label(for='releaseDate')
+      input#releaseDate.form-control(type='date' placeholder=Date.now)
+
+      button.btn.btn-primary(type='submit') Submit

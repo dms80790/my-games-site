@@ -1,0 +1,25 @@
+extends layout
+
+block content
+
+  h1=title
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='name') Name:
+      input#name.form-control(type='text' name='name', required, placeholder='XBox, PS5, etc.', value=(platform == null ? '':platform.name))
+
+    div.form-group
+      label(for='company') Company:
+      input#company.form-control(type='text' name='company', required, placeholder='Sony, Microsoft, etc.', value=(platform == null ? '':platform.name))
+
+    div.form-group
+      label(for='releaseDate') Date of Release:
+      input#releaseDate.form-control(type='date' name='releaseDate', required, value=(platform == null ? '':platform.releaseDate))
+
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

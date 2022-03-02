@@ -17,7 +17,14 @@ exports.get_game_list = function(req, res, next){
 }
 
 exports.get_game = function(req, res, next){
-  res.send('not implemented yet.');
+  Game.findById(req.params.id)
+    .populate('genre')
+    .populate('publisher')
+    .populate('platform')
+    .exec(function(err, game){
+      if(err){ return next(err); }
+      return res.send('game_detail', {title: 'Game: ', game:game});
+    });
 }
 
 exports.get_game_create = function(req, res, next){

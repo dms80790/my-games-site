@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1=title
+
+  ul
+    each platform in platform_list
+      li
+        a(href=platform.url) #{platform.company} #{platform.name} (released: #{platform.release_date_formatted})
+    else
+      There are no platforms in this library.

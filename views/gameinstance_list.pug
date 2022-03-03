@@ -6,14 +6,14 @@ block content
   ul
     each instance in gameinstance_list
       li
-        a(href=instance.url) #{instance.game.title}: #{instance.publisher.name} -
+        a(href=instance.url) #{instance.game.title}: #{instance.isbn}
         if instance.status == 'Available'
-          span.text-success #{instance.status}
+          span.text-success  #{instance.status}
         else if instance.status == 'Maintenance'
-          span.text-danger #{instance.status}
+          span.text-danger  #{instance.status}
         else
-          span.text-warning #{instance.status}
+          span.text-warning  #{instance.status}
         if instance.status != 'Available'
-          span (Due: #{instance.due_date_formatted} )
+          span  (Due: #{instance.due_date_formatted} )
     else
       p There are no game copies in this library.

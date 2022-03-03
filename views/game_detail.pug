@@ -14,3 +14,10 @@ block content
     a(href=game.publisher.url) #{game.publisher.name}
   p #[strong Platform: ]
     a(href=game.platform.url) #{game.platform.name}
+
+  hr
+  p
+    a(href=game.url+'/delete') Delete Game
+  hr
+  p
+    a(href=game.url+'/update') Update Game

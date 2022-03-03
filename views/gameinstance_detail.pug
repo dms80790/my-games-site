@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 #{title}: #{gameinstance._id}
+  p Game:
+    a(href=gameinstance.game.url) #{gameinstance.game.title}
+  p ISBN: #{gameinstance.isbn}
+  p Status:
+    if gameinstance.status == 'Available'
+      span.text-success Available
+    else if gameinstance.status == 'Reserved'
+        span.text-danger Reserved
+    else if gameinstance.status == 'Loaned'
+        span.text-danger Loaned
+    else if gameinstance.status == 'Unreleased'
+        span.text-warning Unreleased
+  if gameinstance.status != 'Available'
+    p Date Available: #{gameinstance.due_date_formatted}
+
+  hr
+  p
+    a(href=gameinstance.url+'/delete') Delete Game Instance
+  hr
+  p
+    a(href=gameinstance.url+'/update') Update Game Instance

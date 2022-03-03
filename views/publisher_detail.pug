@@ -13,6 +13,10 @@ block content
         a(href=game.url) li #{game.title}
       else
         p There are no games by this publisher.
+
   hr
   p
-    a(href=publisher.url+'/delete') Delete platform
+    a(href=publisher.url+'/delete') Delete Publisher
+  hr
+    p
+    a(href=publisher.url+'/update') Update Publisher

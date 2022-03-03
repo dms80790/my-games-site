@@ -5,7 +5,7 @@ const {DateTime} = require('luxon');
 const GameInstanceSchema = new Schema({
   game: {type: Schema.Types.ObjectId, ref: 'Game'},
   isbn: {type: String, required: true, maxLength: 100},
-  status: {type: String, required: true, enum:['unreleased', 'available', 'loaned', 'reserved']},
+  status: {type: String, required: true, enum:['Unreleased', 'Available', 'Loaned', 'Reserved']},
   due_date: {type: Date, required: true, default: Date.now}
 });
 

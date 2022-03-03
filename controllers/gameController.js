@@ -14,7 +14,7 @@ exports.get_game_list = function(req, res, next){
       .sort({name: 1})
       .exec(function(err, games){
         if(err){ return next(err); }
-        res.render('games_list', {title: 'Game List', games_list: games})
+        res.render('game_list', {title: 'Game List', games_list: games})
       });
 }
 

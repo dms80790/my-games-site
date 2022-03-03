@@ -66,11 +66,17 @@ exports.post_gameinstance_create = [
 ];
 
 exports.get_gameinstance_delete = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  GameInstance.findById(req.params.id, function(err, gameinstance){
+    if(err){ return next(err); }
+    return res.render('gameinstance_delete', {title: 'Delete Game Instance', gameinstance: gameinstance});
+  });
+};
 
 exports.post_gameinstance_delete = function(req, res, next){
-  res.send('not implemented yet.');
+  GameInstance.findByIdAndRemove(req.body.instanceid, function(err){
+    if(err){ return next(err); }
+    return res.redirect('/catalog/gameinstances');
+  })
 }
 
 exports.get_gameinstance_update = function(req, res, next){

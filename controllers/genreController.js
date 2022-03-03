@@ -74,11 +74,17 @@ exports.post_genre_create = [
 ];
 
 exports.get_genre_delete = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  Genre.findById(req.params.id, function(err, genre){
+    if(err){ return next(err); }
+    res.render('genre_delete', {title: 'Delete Genre: ', genre: genre});
+  });
+};
 
 exports.post_genre_delete = function(req, res, next){
-  res.send('not implemented yet.');
+  Genre.findByIdAndRemove(req.body.id, function(err){
+    if(err){ return next(err); }
+    return res.redirect('catalog/genres');
+  })
 }
 
 exports.get_genre_update = function(req, res, next){

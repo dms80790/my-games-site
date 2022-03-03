@@ -10,7 +10,8 @@ block content
     h3 Games
     ul
       each game in games_list
-        a(href=game.url) li #{game.title}
+        li
+          a(href=game.url) #{game.title}
       else
         p There are no games by this publisher.
 
@@ -18,5 +19,5 @@ block content
   p
     a(href=publisher.url+'/delete') Delete Publisher
   hr
-    p
+  p
     a(href=publisher.url+'/update') Update Publisher

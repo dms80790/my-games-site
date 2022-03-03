@@ -9,10 +9,15 @@ block content
       input#title.form-control(type='text' name='title' required placeholder='Enter game title')
 
       label(for='description') Summary
-      textArea#description.form-control(type='text' rows='4' cols='60' required placeholder='Enter a brief summary:')
+      textArea#description.form-control(type='text' name='description' rows='4' cols='60' required placeholder='Enter a brief summary:')
 
-      label(for='genre') Genre
-      input#genre.form-control(type='text' required placeholder='Enter game title')
+      div.form-group
+      p Genre
+      each genre in genre_list
+        div(style='display: inline; padding-right:10px;')
+          input.checkbox-input(type='checkbox' name='genre' id=genre._id value=genre._id checked=genre.checked)
+          label(for=genre._id) #{genre.name}
+
 
       label(for='publisher') Publisher
       select#publisher.form-control(placeholder='Select Publisher' required type='select' name='publisher')
@@ -25,6 +30,11 @@ block content
           option(value=platform._id) #{platform.name}
 
       label(for='releaseDate')
-      input#releaseDate.form-control(type='date' placeholder=Date.now)
+      input#releaseDate.form-control(type='date' name='release_date' placeholder=Date.now)
 
       button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      each error in errors
+        li!= error.msg

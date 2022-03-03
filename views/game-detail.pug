@@ -1,9 +1,0 @@
-extends layout
-
-block content
-  h1= title ${game.title}
-  p [strong Summary:] #{game.description}
-  [strong Genre:] a(href=game.genre.url) #{game.genre.name}
-  p [strong Release Date:] #{game.release_date_formatted}
-  p [strong Publisher:] a(href=game.publisher.url) #{game.publisher.name}
-  p [strong Platform:] a(href=game.platform.url) #{game.platform.name}

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 #{title} #{game.title}
+  p #[strong Summary: ] #{game.description}
+  p #[strong Genre: ]
+    each genre, index in game.genre
+      a(href=genre.url) #{genre.name}
+      if index < game.genre.length-1
+        |,
+  p #[strong Release Date: ]
+    | #{game.release_date_formatted}
+  p #[strong Publisher: ]
+    a(href=game.publisher.url) #{game.publisher.name}
+  p #[strong Platform: ]
+    a(href=game.platform.url) #{game.platform.name}

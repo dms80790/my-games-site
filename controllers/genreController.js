@@ -58,11 +58,13 @@ exports.post_genre_create = [
         if(err){ return next(err); }
         //genre already exists... redirect to its detail page
         if(found_genre){
+          console.log('genre already found, redirecting');
           res.redirect(found_genre.url);
         } else{
           //save the genre item
           genre.save(function(err){
             if(err){ return next(err); }
+            console.log('new genre saved');
             res.redirect(genre.url);
           });
         }

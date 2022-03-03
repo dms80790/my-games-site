@@ -2,6 +2,7 @@ const Game = require('../models/game');
 const Genre = require('../models/genre');
 const Publisher = require('../models/publisher');
 const Platform = require('../models/platform');
+const GameInstance = require('../models/gameinstance')
 const async = require('async');
 const { body, validationResult } = require('express-validator');
 
@@ -98,7 +99,22 @@ exports.post_game_create = [
 ];
 
 exports.get_game_delete = function(req, res, next){
-  res.send('not implemented yet.');
+  async.parallel({
+    instances: function(callback){
+      GameInstance.find({'game': req.params.id}).populate('game').exec(callback);
+    },
+    game: function(callback){
+      Game.findById(req.params.id, callback);
+    }
+  }, function(err, results){
+    if(err){ return next(err); }
+    if(results.game == null){
+      res.redirect('/catalog/games');
+    }
+
+    res.render('game_delete', {title:'Delete Game: ', game: results.game, gameinstance_list: results.instances})
+    }
+  );
 }
 
 exports.post_game_delete = function(req, res, next){

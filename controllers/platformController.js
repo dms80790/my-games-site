@@ -37,7 +37,7 @@ exports.post_platform_create = [
   body('company', 'You must enter a company.').trim().isLength({min:1}).escape(),
   body('releaseDate', 'Invalid date.').optional({checkFalsy: true}).isISO8601().toDate(),
 
-  (req, res, next) =>{
+  (req, res, next) => {
     let errors = validationResult(req);
 
     let platform = new Platform({
@@ -73,9 +73,23 @@ exports.post_platform_update = function(req, res, next){
 }
 
 exports.get_platform_delete = function(req, res, next){
-  res.send('not implemented yet');
+  async.parallel({
+    platform: function(callback){
+      Platform.findById(req.params.id, callback);
+    },
+    games: function(callback){
+      Game.find({'platform': req.params.id}, callback);
+    }
+  }, function(err, results){
+    if(err){ return next(err); }
+    console.log('got here');
+    return res.render('platform_delete', {title: 'Delete Platform: ', platform: results.platform, games_list: results.games});
+  });
 }
 
 exports.post_platform_delete = function(req, res, next){
-  res.send('not implemented yet');
+  Platform.findByIdAndRemove(req.body.platform_id, function(err){
+    if(err){ return next(err); }
+    return res.redirect('/catalog/platforms');
+  })
 }

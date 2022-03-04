@@ -25,7 +25,7 @@ exports.get_home_page = function(req, res, next){
       },
     }, function(err, results){
       if(err){ return next(err); }
-      res.render('index', {title: 'Game Library Home', data: results, error: err});
+      return res.render('index', {title: 'Game Library Home', data: results, error: err});
     }
   );
 }
@@ -34,7 +34,7 @@ exports.get_home_page = function(req, res, next){
 exports.get_publisher_list = function(req, res, next){
   Publisher.find({}, function(err, publishers){
     if(err){ return next(err); }
-    res.render('publisher_list', {title: 'Publishers', publisher_list: publishers})
+    return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers})
   });
 }
 
@@ -48,20 +48,15 @@ exports.get_publisher = function(req, res, next){
     }
   }, function(err, results){
     if(err){ return next(err); }
-    res.render('publisher_detail', {title: 'Publisher: ', publisher: results.publisher, games_list: results.games});
+    return res.render('publisher_detail', {title: 'Publisher: ', publisher: results.publisher, games_list: results.games});
   });
 }
 
 exports.get_publisher_create = function(req, res, next){
-    res.render('publisher_form', {title: 'Create Publisher'});
+    return res.render('publisher_form', {title: 'Create Publisher'});
 }
 
 exports.post_publisher_create = [
-  function(req,res,next){
-    console.log("name: " + req.body.name);
-    console.log("location: " + req.body.location);
-    next();
-  },
   body('name', 'Name cannot be empty!').trim().isLength({min:1}).escape(),
   body('location', 'Location cannot be empty!').trim().isLength({min:1}).escape(),
 
@@ -74,7 +69,7 @@ exports.post_publisher_create = [
     });
 
     if(!errors.isEmpty()){
-      res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array()})
+      return res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array()})
     } else{
       //there are no errors, so check if publisher already exists
       Publisher.findOne({name: req.body.name}, function(err, publisher_found){
@@ -85,7 +80,7 @@ exports.post_publisher_create = [
           //publisher does not exist, so save it to database
           publisher.save(function(err){
             if(err){ return err(next); }
-            res.redirect(publisher.url);
+            return res.redirect(publisher.url);
           });
         }
       });
@@ -117,11 +112,34 @@ exports.post_publisher_delete = function(req, res, next){
 }
 
 exports.get_publisher_update = function(req, res, next){
-  res.send('not implemented yet.');
+  Publisher.findById(req.params.id, function(err, publisher){
+    if(err){ return next(err); }
+    return res.render('publisher_form', {title: 'Update Publisher: ' + publisher.name, publisher: publisher});
+  });
 }
 
-exports.post_publisher_update = function(req, res, next){
-  res.send('not implemented yet.');
-}
+exports.post_publisher_update = [
+  body('name', 'Name cannot be empty!').trim().isLength({min:1}).escape(),
+  body('location', 'Location cannot be empty!').trim().isLength({min:1}).escape(),
+
+  (req, res, next) => {
+    let errors = validationResult(req);
+
+    let publisher = new Publisher({
+      name: req.body.name,
+      location: req.body.location,
+      _id: req.params.id
+    });
+
+    if(!errors.isEmpty()){
+      return res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array()})
+    } else{
+        Publisher.findByIdAndUpdate(req.params.id, publisher, function(err){
+            if(err){ return err(next); }
+            return res.redirect(publisher.url);
+        });
+      }
+  }
+];
 
 module.exports

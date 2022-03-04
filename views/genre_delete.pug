@@ -3,8 +3,8 @@ extends layout
 block content
   h1 #{title} #{genre.name}
   if games_list.length
-    p You must delete the following games before you can delete the genre:
-    div(style='margin-left: 20px, margin-top: 20px')
+    p #[strong You must delete the following games before you can delete the genre:]
+    div(style='margin-left:20px;margin-top:20px')
       h3 Games
         dl
           each game in games_list

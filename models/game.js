@@ -8,7 +8,7 @@ const GameSchema = new Schema({
   genre: [{type: Schema.Types.ObjectId, ref: 'Genre'}],
   release_date: {type: Date, required: true, default: Date.now},
   publisher: {type: Schema.Types.ObjectId, ref: 'Publisher'},
-  platform: {type: Schema.Types.ObjectId, ref: 'Platform'}
+  platform: [{type: Schema.Types.ObjectId, ref: 'Platform'}]
 });
 
 GameSchema.virtual('url').get(function(){

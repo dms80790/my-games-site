@@ -7,13 +7,16 @@ block content
     each genre, index in game.genre
       a(href=genre.url) #{genre.name}
       if index < game.genre.length-1
-        |,
+        |, 
   p #[strong Release Date: ]
     | #{game.release_date_formatted}
   p #[strong Publisher: ]
     a(href=game.publisher.url) #{game.publisher.name}
   p #[strong Platform(s): ]
-    a(href=game.platform.url) #{game.platform.name}
+    each platform, index in game.platform
+        a(href=platform.url) #{platform.name}
+        if index < game.platform.length-1
+          |,
 
   hr
   p

@@ -15,7 +15,7 @@ exports.get_game_list = function(req, res, next){
       .sort({name: 1})
       .exec(function(err, games){
         if(err){ return next(err); }
-        res.render('game_list', {title: 'Game List', games_list: games})
+        res.render('game_list', {title: 'Games', games_list: games})
       });
 }
 
@@ -26,7 +26,7 @@ exports.get_game = function(req, res, next){
     .populate('platform')
     .exec(function(err, game){
       if(err){ return next(err); }
-      console.log(game.release_date_formatted);
+      console.log(game.platform);
       return res.render('game_detail', {title: 'Game: ', game:game});
     });
 }
@@ -52,7 +52,7 @@ exports.post_game_create = [
   body('genre.*', 'Genre must be specified!').escape(),
   body('release_date', 'Invalid date!').optional({checkFalsy: true}).isISO8601().toDate(),
   body('publisher', 'Publisher must be specified!').escape(),
-  body('platform', 'Platform must be specified!').escape(),
+  body('platform.*', 'Platforms must be specified!').escape(),
 
   (req, res, next) => {
     let errors = validationResult(req);
@@ -148,7 +148,7 @@ exports.post_game_update = [
   body('genre.*', 'Genre must be specified!').escape(),
   body('release_date', 'Invalid date!').optional({checkFalsy: true}).isISO8601().toDate(),
   body('publisher', 'Publisher must be specified!').escape(),
-  body('platform', 'Platform must be specified!').escape(),
+  body('platform.*', 'Platform must be specified!').escape(),
 
   (req, res, next) => {
     let errors = validationResult(req);

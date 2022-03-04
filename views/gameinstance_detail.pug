@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{title}: #{gameinstance._id}
-  p Game:
+  p Game: 
     a(href=gameinstance.game.url) #{gameinstance.game.title}
   p ISBN: #{gameinstance.isbn}
   p Status:

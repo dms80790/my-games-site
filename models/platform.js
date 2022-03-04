@@ -5,15 +5,15 @@ const { DateTime } = require('luxon');
 const PlatformSchema = new Schema({
   name: {type: String, required: true, maxLength: 100},
   company: {type: String, required: true, maxLength: 100},
-  releaseYear: {type: Date, required: true, default: Date.now}
+  releaseDate: {type: Date, required: true, default: Date.now}
 });
 
 PlatformSchema.virtual('url').get(function(){
   return '/catalog/platform/' + this._id;
 });
 
-PlatformSchema.virtual('releaseYearFormatted').get(function(){
-  return DateTime.fromJSDate(this.releaseYear).toLocaleString(DateTime.DATE_MED);
+PlatformSchema.virtual('releaseDateFormatted').get(function(){
+  return DateTime.fromJSDate(this.releaseDate).toLocaleString(DateTime.DATE_MED);
 });
 
 

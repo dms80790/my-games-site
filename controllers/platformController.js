@@ -65,12 +65,37 @@ exports.post_platform_create = [
 ];
 
 exports.get_platform_update = function(req, res, next){
-  res.send('not implemented yet');
+  Platform.findById(req.params.id, function(err, platform){
+    if(err){ return next(err); }
+    return res.render('platform_form', {title:'Update Platform: ' + platform.name, platform: platform});
+  });
 }
 
-exports.post_platform_update = function(req, res, next){
-  res.send('not implemented yet');
-}
+exports.post_platform_update = [
+  body('name', 'You must enter a name.').trim().isLength({min:1}).escape(),
+  body('company', 'You must enter a company.').trim().isLength({min:1}).escape(),
+  body('releaseDate', 'Invalid date.').optional({checkFalsy: true}).isISO8601().toDate(),
+
+  (req, res, next) => {
+    let errors = validationResult(req);
+
+    let platform = new Platform({
+      name: req.body.name,
+      company: req.body.company,
+      releaseDate: req.body.releaseDate,
+      _id: req.params.id
+    });
+
+    if(!errors.isEmpty()){
+      return res.send('platform_form', {title: 'Create Platform', platform: platform, errors: errors.array()})
+    } else{
+        Platform.findByIdAndUpdate(req.params.id, platform, function(err){
+          if(err){ return next(err); }
+          return res.redirect(platform.url);
+        });
+    }
+  }
+];
 
 exports.get_platform_delete = function(req, res, next){
   async.parallel({

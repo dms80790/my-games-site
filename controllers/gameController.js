@@ -126,11 +126,64 @@ exports.post_game_delete = function(req, res, next){
 }
 
 exports.get_game_update = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  async.parallel({
+    publishers: function(callback){
+      Publisher.find({}, callback);
+    }, platforms: function(callback){
+      Platform.find({}, callback);
+    }, genres: function(callback){
+      Genre.find({}, callback);
+    }, game: function(callback){
+      Game.findById(req.params.id, callback)
+    }
+  }, function(err, results){
+      if(err){ return next(err); }
+      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game});
+    }
+)};
 
-exports.post_game_update = function(req, res, next){
-  res.send('not implemented yet.');
-}
+exports.post_game_update = [
+  body('title', 'Title required!').trim().isLength({min:1}).escape(),
+  body('description', 'Description required!').trim().isLength({min:1}).escape(),
+  body('genre.*', 'Genre must be specified!').escape(),
+  body('release_date', 'Invalid date!').optional({checkFalsy: true}).isISO8601().toDate(),
+  body('publisher', 'Publisher must be specified!').escape(),
+  body('platform', 'Platform must be specified!').escape(),
+
+  (req, res, next) => {
+    let errors = validationResult(req);
+
+    let game = new Game({
+      title: req.body.title,
+      description: req.body.description,
+      genre: req.body.genre,
+      release_date: req.body.release_date,
+      publisher: req.body.publisher,
+      platform: req.body.platform,
+      _id: req.params.id
+    });
+
+    if(!errors.isEmpty()){
+      async.parallel({
+        publishers: function(callback){
+          Publisher.find({}, callback);
+        }, platforms: function(callback){
+          Platform.find({}, callback);
+        }, genres: function(callback){
+          Genre.find({}, callback);
+        }
+      }, function(err, results){
+          if(err){ return next(err); }
+          res.render('game_form', {title: 'Create Game:', game: game, publisher_list: results.publishers, genre_list: results.genres, platform_list: results.platforms});
+        }
+    );
+  } else{
+      Game.findByIdAndUpdate(req.params.id, game, function(err){
+        if(err){ return next(err); }
+        return res.redirect(game.url);
+      });
+    }
+  }
+];
 
 module.exports

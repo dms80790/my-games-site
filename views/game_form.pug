@@ -6,10 +6,10 @@ block content
   form(method='POST' action='')
     div.form-group
       label(for='title') Title
-      input#title.form-control(type='text' name='title' required placeholder='Enter game title')
+      input#title.form-control(type='text' name='title' required placeholder='Enter game title' value=(game==null) ? '': game.title)
 
       label(for='description') Summary
-      textArea#description.form-control(type='text' name='description' rows='4' cols='60' required placeholder='Enter a brief summary:')
+      textArea#description.form-control(type='text' name='description' rows='4' cols='60' required placeholder='Enter a brief summary:' value=(game==null) ? '': game.description)
 
       div.form-group
       p Genre
@@ -20,17 +20,17 @@ block content
 
 
       label(for='publisher') Publisher
-      select#publisher.form-control(placeholder='Select Publisher' required type='select' name='publisher')
+      select#publisher.form-control(placeholder='Select Publisher' required type='select' name='publisher' value=(game==null) ? '': game.platoform)
         each publisher in publisher_list
           option(value=publisher._id) #{publisher.name}
 
       label(for='platform') Platform
-      select#platform.form-control(placeholder='Select Platform' required type='select' name='platform')
+      select#platform.form-control(placeholder='Select Platform' required type='select' name='platform' value=(game==null) ? '': game.platform)
         each platform in platform_list
           option(value=platform._id) #{platform.name}
 
       label(for='releaseDate')
-      input#releaseDate.form-control(type='date' name='release_date' placeholder=Date.now)
+      input#releaseDate.form-control(type='date' name='release_date' placeholder=Date.now value=(game==null) ? '': game.releaseDate)
 
       button.btn.btn-primary(type='submit') Submit
 

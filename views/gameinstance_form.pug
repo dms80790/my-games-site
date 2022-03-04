@@ -6,16 +6,16 @@ block content
   form(method='POST', action='')
     div.form-group
       label(for='game') Game:
-      select#game.form-control(type='select' name='game' required, placeholder='Select Game')
+      select#game.form-control(type='select' name='game' required, placeholder='Select Game' value=(gameinstance == null) ? '' : gameinstance.game)
         each game in game_list
           option(value=game._id) #{game.title}
     div.form-group
       label(for='isbn') ISBN:
-        input#isbn.form-control(type='text' name='isbn' required placeholder='Enter ISBN')
+        input#isbn.form-control(type='text' name='isbn' required placeholder='Enter ISBN' value=(gameinstance == null) ? '' : gameinstance.isbn)
 
     div.form-group
       label(for='status') Status:
-      select#status.form-control(type='select' name='status' required, placeholder='Select Availability')
+      select#status.form-control(type='select' name='status' required, placeholder='Select Availability' value=(gameinstance == null) ? '' : gameinstance.status)
         option(value='Available') Available
         option(value='Reserved') Reserved
         option(value='Loaned') Loaned

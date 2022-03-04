@@ -80,11 +80,47 @@ exports.post_gameinstance_delete = function(req, res, next){
 }
 
 exports.get_gameinstance_update = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  async.parallel({
+    gameinstance: function(callback){
+      GameInstance.findById(req.params.id, callback)
+    }, games: function(callback){
+      Game.find({}, callback)
+    }
+  }, function(err, results){
+    if(err){ return next(err); }
+    return res.render('gameinstance_form', {title: 'Update Game Instance', gameinstance: results.gameinstance, game_list: results.games});
+  }
+)};
 
-exports.post_gameinstance_update = function(req, res, next){
-  res.send('not implemented yet.');
-}
+exports.post_gameinstance_update = [
+  body('game', 'A game must be selected!').escape(),
+  body('isbn', 'Invalid ISBN. Must be a number').trim().isNumeric().isLength({min:1}),
+  body('status', 'A status must be selected!').escape(),
+  body('due_back').optional({checkFalsy: true}).isISO8601().toDate(),
+
+  (req, res, next) => {
+    let errors = validationResult(req);
+
+    let gameinstance = new GameInstance({
+      game: req.body.game,
+      isbn: req.body.isbn,
+      status: req.body.status,
+      due_back: req.body.due_back,
+      _id: req.params.id
+    });
+
+    if(!errors.isEmpty()){
+      Game.find({}, function(err, games){
+          if(err){ return next(err); }
+          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance});
+      });
+    } else{
+        GameInstance.findByIdAndUpdate(req.params.id, gameinstance, function(err){
+          if(err){ return next(err); }
+          return res.redirect(gameinstance.url);
+        });
+    }
+  }
+];
 
 module.exports

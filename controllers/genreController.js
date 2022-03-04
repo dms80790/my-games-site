@@ -74,16 +74,23 @@ exports.post_genre_create = [
 ];
 
 exports.get_genre_delete = function(req, res, next){
-  Genre.findById(req.params.id, function(err, genre){
-    if(err){ return next(err); }
-    res.render('genre_delete', {title: 'Delete Genre: ', genre: genre});
-  });
-};
+  async.parallel({
+      genre: function(callback){
+        Genre.findById(req.params.id, callback);
+      },
+      games: function(callback){
+        Game.find({genre: req.params.id}, callback);
+      }
+    }, function(err, results){
+      if(err){ return next(err); }
+      return res.render('genre_delete', {title: 'Delete Genre: ', genre: results.genre, games_list: results.games});
+    }
+)};
 
 exports.post_genre_delete = function(req, res, next){
-  Genre.findByIdAndRemove(req.body.id, function(err){
+  Genre.findByIdAndRemove(req.body.genre_id, function(err){
     if(err){ return next(err); }
-    return res.redirect('catalog/genres');
+    return res.redirect('/catalog/genres');
   })
 }
 

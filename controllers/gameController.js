@@ -111,14 +111,18 @@ exports.get_game_delete = function(req, res, next){
     if(results.game == null){
       res.redirect('/catalog/games');
     }
-
+    console.log(results.game);
     res.render('game_delete', {title:'Delete Game: ', game: results.game, gameinstance_list: results.instances})
     }
   );
 }
 
 exports.post_game_delete = function(req, res, next){
-  res.send('not implemented yet.');
+  Game.findByIdAndRemove(req.body.game_id, function(err){
+    if(err){ return next(err);}
+    console.log('game ' + req.body.game_id + ' deleted');
+    res.redirect('/catalog/games');
+  })
 }
 
 exports.get_game_update = function(req, res, next){

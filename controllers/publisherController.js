@@ -94,11 +94,26 @@ exports.post_publisher_create = [
 ];
 
 exports.get_publisher_delete = function(req, res, next){
-  res.send('not implemented yet.');
-}
+  async.parallel({
+    publisher: function(callback){
+      Publisher.findById(req.params.id, callback);
+    },
+    games: function(callback){
+      Game.find({'publisher': req.params.id}, callback);
+    }
+  }, function(err, results){
+    if(err){ return next(err); }
+    console.log(results.publisher);
+    return res.render('publisher_delete', {title: 'Delete Publisher: ', publisher: results.publisher, games_list: results.games});
+  }
+)};
 
 exports.post_publisher_delete = function(req, res, next){
-  res.send('not implemented yet.');
+  Publisher.findByIdAndRemove(req.body.publisher_id, function(err){
+    if(err){ return next(err); }
+    console.log('publisher ' + req.body.publisher_id + ' deleted.');
+    return res.redirect('/catalog/publishers');
+  });
 }
 
 exports.get_publisher_update = function(req, res, next){

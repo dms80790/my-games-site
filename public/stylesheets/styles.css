@@ -44,8 +44,16 @@ h2, h3{
   font-family: Trebuchet, sans-serif;
 }
 
+ul {
+  list-style-type: square;
+}
+
 dd{
   overflow: hidden;
+}
+
+.form-group > label, .form-group > p{
+  font-weight: bold;
 }
 
 .bold{

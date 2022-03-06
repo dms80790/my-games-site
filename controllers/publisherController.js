@@ -32,9 +32,11 @@ exports.get_home_page = function(req, res, next){
 
 
 exports.get_publisher_list = function(req, res, next){
-  Publisher.find({}, function(err, publishers){
-    if(err){ return next(err); }
-    return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers})
+  Publisher.find({})
+        .sort({'name': 1})
+        .exec(function(err, publishers){
+          if(err){ return next(err); }
+          return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers})
   });
 }
 

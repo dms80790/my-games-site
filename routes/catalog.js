@@ -39,6 +39,7 @@ router.get('/game/:id/delete', game_controller.get_game_delete);
 router.post('/game/:id/delete', game_controller.post_game_delete);
 router.get('/game/:id/', game_controller.get_game);
 router.get('/games', game_controller.get_game_list);
+router.post('/games', game_controller.post_game_list);
 
 //game instance routes
 router.get('/gameinstance/create', gameinstance_controller.get_gameinstance_create);

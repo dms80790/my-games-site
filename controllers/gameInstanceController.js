@@ -5,12 +5,18 @@ const { body, validationResult } = require('express-validator');
 
 //gameinstance routes
 exports.get_gameinstance_list = function(req, res, next){
-  GameInstance.find({})
-              .populate('game')
-              .exec(function(err, gameinstances){
-                if(err){ return next(err); }
-                res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: gameinstances});
-              });
+  async.parallel({
+    gameinstance_list: function(callback){
+      GameInstance.find({})
+        .populate('game')
+        .exec(callback)
+    }, games: function(callback){
+      Game.find().sort({'title': 1}).exec(callback)
+    }
+  }, function(err, results){
+        if(err){ return next(err); }
+        res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games});
+  });
 }
 
 //game, isbn, due_date, status

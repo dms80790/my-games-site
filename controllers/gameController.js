@@ -12,10 +12,37 @@ exports.get_game_list = function(req, res, next){
       .populate('genre')
       .populate('publisher')
       .populate('platform')
-      .sort({name: 1})
+      .sort([['title', 'ascending']])
       .exec(function(err, games){
         if(err){ return next(err); }
         res.render('game_list', {title: 'Games', games_list: games})
+      });
+}
+
+exports.post_game_list = function(req, res, next){
+  let sort_option = req.body.sort_by;
+
+  switch(sort_option){
+    case 'alphabet':
+      console.log('sorted by alphabet')
+      sort_option = 'title';
+      break;
+    case 'platform':
+      console.log('sorted by platform')
+      sort_option= 'platform.name';
+      break;
+    case 'publisher':
+      console.log('sorted by publisher')
+      sort_option= 'publisher.name';
+  }
+  Game.find({})
+      .populate('genre')
+      .populate('publisher')
+      .populate('platform')
+      .sort([[sort_option, 'ascending']])
+      .exec(function(err, games){
+        if(err){ return next(err); }
+        res.render('game_list', {title: 'Games', games_list: games, sort_option: sort_option})
       });
 }
 

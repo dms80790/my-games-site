@@ -5,7 +5,7 @@ const async = require('async');
 
 exports.get_platform_list = function(req, res, next){
   Platform.find({})
-          .sort([['name', 'ascending']])
+          .sort([['company', 'ascending'], ['name', 'ascending']])
           .exec(function(err, platforms){
             if(err){ return next(err); }
             res.render('platform_list', {title: 'Platforms', platform_list: platforms});

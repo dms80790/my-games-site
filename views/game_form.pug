@@ -11,24 +11,24 @@ block content
       label(for='description') #[strong Summary]
       textArea#description.form-control(type='text' name='description' rows='4' cols='60' required placeholder='Enter a brief summary:' value=(game==null) ? '': game.description)
 
-      div.form-group
-      p #[strong Genres]
-      each genre in genre_list
-        div(style='display: inline; padding-right:10px;')
-          input.checkbox-input(type='checkbox' name='genre' id=genre._id value=genre._id checked=genre.checked)
-          label(for=genre._id) #{genre.name}
+      div.form-group(style='width:600px')
+        p #[strong Genres]
+        each genre in genre_list
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox' name='genre' id=genre._id value=genre._id checked=genre.checked)
+            label(for=genre._id) #{genre.name}
       br
       label(for='publisher') #[strong Publisher]
       select#publisher.form-control(placeholder='Select Publisher' required type='select' name='publisher' value=(game==null) ? '': game.platoform)
         each publisher in publisher_list
           option(value=publisher._id) #{publisher.name}
 
-      div.form-group
-      p #[strong Platforms]
+      div.form-group(style='width:600px')
+        p #[strong Platforms]
         each platform in platform_list
           div(style='display: inline; padding-right:10px;')
-            input.checkbox-input(type='checkbox' name='platform' id=platform._id value=platform._id checked=platform.checked)
-            label(for=platform._id) #{platform.name}
+          input.checkbox-input(type='checkbox' name='platform' id=platform._id value=platform._id checked=platform.checked)
+          label(for=platform._id) #{platform.name}
 
       label(for='releaseDate') #[strong Release Date:]
       input#releaseDate.form-control(type='date' name='release_date' placeholder=Date.now value=(game==null) ? '': game.releaseDate)

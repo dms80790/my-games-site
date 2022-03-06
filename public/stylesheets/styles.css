@@ -1,9 +1,59 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  background-color: eggshell;
+}
+
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
     list-style: none;
 }
 
+.header{
+  margin-left: 2px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.header h1{
+  font-family: 'Permanent Marker', cursive;
+  font-size: 60px;
+  /*color: #254DF5;*/
+  width: 35%;
+  color: black;
+}
+
+.header a:hover{
+  text-decoration: none;
+}
+
+#login-btn{
+  margin: 25px 2px;
+  height: 30px;
+  border-radius: 8px;
+  padding: 2px 12px;
+  color: gold;
+  font-weight: 700;
+}
+
+h2, h3{
+  font-family: Trebuchet, sans-serif;
+}
+
+dd{
+  overflow: hidden;
+}
+
 .bold{
   font-weight: bold;
+}
+
+@media screen and (max-width: 1000px){
+  .sidebar-nav{
+    display: none;
+  }
 }

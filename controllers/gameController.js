@@ -165,7 +165,23 @@ exports.get_game_update = function(req, res, next){
     }
   }, function(err, results){
       if(err){ return next(err); }
-      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game});
+
+      for(let i = 0; i < results.genres.length; i++){
+				for(let j = 0; j < results.game.genre.length; j++){
+					if(results.game.genre[j]._id.toString() == results.genres[i]._id.toString()){
+						results.genres[i].checked = true;
+					}
+				}
+			}
+
+      for(let i = 0; i < results.platforms.length; i++){
+				for(let j = 0; j < results.game.platform.length; j++){
+					if(results.game.platform[j]._id.toString() == results.platforms[i]._id.toString()){
+						results.platforms[i].checked = true;
+					}
+				}
+			}
+      res.render('game_form', {title: 'Update Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game});
     }
 )};
 

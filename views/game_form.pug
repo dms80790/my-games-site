@@ -9,7 +9,7 @@ block content
       input#title.form-control(type='text' name='title' required placeholder='Enter game title' value=(game==null) ? '': game.title)
 
       label(for='description') Summary
-      textArea#description.form-control(type='text' name='description' rows='4' cols='60' required placeholder='Enter a brief summary:' value=(game==null) ? '': game.description)
+      textArea#description.form-control(type='text' name='description' rows='4' cols='60' required placeholder='Enter a brief summary:') #{(game==null) ? '': game.description}
 
       div.form-group(style='width:600px')
         p Genres

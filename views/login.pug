@@ -5,7 +5,7 @@ block content
   if(message)
     h4 #{message}
 
-  form(action="/login" method = "POST")
+  form(action="" method = "POST")
     label(for='username') User Id:
     input#username.form-control(name="username" type="text" required placeholder="User ID")
 
@@ -16,3 +16,8 @@ block content
 
     p Not an existing user?
       a(href='/users/signup')  Sign Up!
+
+    if errors
+      ul
+        for error in errors
+          li!= error.msg

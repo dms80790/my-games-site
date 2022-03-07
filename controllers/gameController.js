@@ -35,14 +35,16 @@ exports.post_game_list = function(req, res, next){
       console.log('sorted by publisher')
       sort_option= 'publisher.name';
   }
+
   Game.find({})
       .populate('genre')
       .populate('publisher')
       .populate('platform')
-      .sort([[sort_option, 'ascending']])
+      .sort([['publisher.name', 'ascending']])
       .exec(function(err, games){
         if(err){ return next(err); }
-        res.render('game_list', {title: 'Games', games_list: games, sort_option: sort_option})
+        console.log(games[0].publisher.name);
+        res.render('game_list', {title: 'Games', games_list: games})
       });
 }
 

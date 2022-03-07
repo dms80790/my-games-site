@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Sign Up
+  if(message)
+    h4 #{message}
+
+  form(action="/signup" method="POST")
+    label(for="username") Username:
+    input#username.form-control(name="username" type ="text" required placeholder="User ID")
+
+    label(for="password") Password:
+    input#password.form-control(name="password" type="password" required placeholder="Password")
+
+    button.btn.btn-primary(type = "Submit") Sign Up!
+
+    p Already an existing user?
+      a(href='/users/signup')  Log In

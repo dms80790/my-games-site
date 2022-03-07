@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET users listing. */
-router.get('/signin', function(req, res, next) {
-  res.send('not implemented yet');
+router.get('/login', function(req, res, next) {
+  res.render('login');
+});
+
+router.get('/signup', function(req, res, next) {
+  res.render('signup');
 });
 
 module.exports = router;

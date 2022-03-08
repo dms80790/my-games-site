@@ -8,22 +8,14 @@ const { body, validationResult } = require('express-validator');
 
 //game routes
 exports.get_game_list = function(req, res, next){
-    let sort_by = '';
-    if(req.query.sort_by == "publisher"){sort_by1 = 'publisher'; sort_by2 = 'name'}
-    else if(req.query.sort_by == "platform"){sort_by1 = 'platform'; sort_by2 = 'name'}
-    else if(req.query.sort_by == "title"){sort_by1 = 'title'; sort_by2='';}
-
     Game.find({})
         .populate('genre')
         .populate('platform')
         .populate('publisher')
         .exec(function(err, games){
           if(err){ return next(err); }
-          console.log(games);
-          if(sort_by1 && sort_by2){
-            games.sort(sortBy(sort_by1, sort_by2));
-            console.log('#########\n###########\n###########\n##########');
-            console.log(games)
+          if(req.query.sort_by){
+            games.sort(sortBy(req.query.sort_by));
           }
           res.render('game_list', {title: 'Games', games_list: games})
         }
@@ -211,12 +203,26 @@ exports.post_game_update = [
   }
 ];
 
-function sortBy(sort_by1, sort_by2) {
+function sortBy(field) {
   return function(a, b) {
-    if(a[sort_by1][sort_by2] > b[sort_by1][sort_by2]){
-      return 1;
-    } else{
-      return -1;
+    if(field == "publisher"){
+      if(a.publisher.name > b.publisher.name){
+        return 1;
+      } else{
+        return -1;
+      }
+    }else if(field == 'platform'){
+      if(a.platform[0].name > b.platform[0].name){
+        return 1;
+      } else{
+        return -1;
+      }
+    } else if(field == 'title'){
+        if(a.title > b.title){
+          return 1;
+        } else{
+          return -1;
+        }
     }
   };
 }

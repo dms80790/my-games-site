@@ -21,6 +21,7 @@ exports.get_game_list = function(req, res, next){
         }
     );
 }
+
 exports.get_game = function(req, res, next){
   Game.findById(req.params.id)
     .populate('genre')

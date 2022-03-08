@@ -14,8 +14,11 @@ exports.get_gameinstance_list = function(req, res, next){
       Game.find().sort({'title': 1}).exec(callback)
     }
   }, function(err, results){
-        if(err){ return next(err); }
-        res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games});
+      if(err){ return next(err); }
+      if(req.query.sort_by){
+        results.gameinstance_list.sort(sortBy(req.query.sort_by));
+      }
+      res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games});
   });
 }
 
@@ -128,5 +131,23 @@ exports.post_gameinstance_update = [
     }
   }
 ];
+
+function sortBy(field) {
+  return function(a, b) {
+    if(field == 'availability'){
+      if(a.status > b.status){
+        return 1;
+      } else{
+        return -1;
+      }
+    } else if(field == 'title'){
+        if(a.game.title > b.game.title){
+          return 1;
+        } else{
+          return -1;
+        }
+    }
+  };
+}
 
 module.exports

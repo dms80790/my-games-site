@@ -1,15 +1,14 @@
 extends layout
 
 block content
-  form(method='POST', action='')
+  form(method='GET', action='')
     div.form-group
       label(for='sort_by') Sort By:
       select#sort_by.form-control(type='select' name='sort_by' placeholder='Select sort option' value=(sort_option==null) ? '': sort_option)
-        option(value='alphabet') Alphabet
-        option(value='platform') Platform
-        option(value='publisher') Publisher
+        option(value='title') Title
+        option(value='availability') Availability
       label(for='filter_by') Filter Game:
-      select#filter_by.form-control(type='select' name='sort_by' placeholder='Select sort option' value=(sort_option==null) ? '': sort_option)
+      select#filter_by.form-control(type='select' name='filter_by' placeholder='Select sort option' value=(sort_option==null) ? '': sort_option)
         each game in game_list
           option(value=game.id) !{game.title}
 

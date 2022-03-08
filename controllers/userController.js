@@ -25,6 +25,7 @@ exports.post_login = [
     user.save(function(err) {
         if (err){ next(err) };
         console.log('user ' + user.name + ' logged in at ' + Date.now);
+        req.session.user = user;
         return res.redirect('/catalog');
     });
   }

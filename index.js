@@ -5,6 +5,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
 app.use(cookieParser());
+app.use(session({secret: "Your secret key", resave: false, saveUninitialized: true}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

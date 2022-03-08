@@ -8,46 +8,24 @@ const { body, validationResult } = require('express-validator');
 
 //game routes
 exports.get_game_list = function(req, res, next){
-  Game.find({})
-      .populate('genre')
-      .populate('publisher')
-      .populate('platform')
-      .sort([['title', 'ascending']])
-      .exec(function(err, games){
-        if(err){ return next(err); }
-        res.render('game_list', {title: 'Games', games_list: games})
-      });
+    let sort_by = '';
+    if(req.query.sort_by == "publisher"){sort_by1 = 'publisher'; sort_by2 = 'name'}
+    else if(req.query.sort_by == "platform"){sort_by1 = 'platform'; sort_by2 = 'name'}
+    else if(req.query.sort_by == "title"){sort_by1 = 'title'; sort_by2='';}
+
+    Game.find({})
+        .populate('genre')
+        .populate('platform')
+        .populate('publisher')
+        .exec(function(err, games){
+          if(err){ return next(err); }
+          if(sort_by1 && sort_by2){
+            games.sort(sortBy(sort_by1, sort_by2));
+          }
+          res.render('game_list', {title: 'Games', games_list: games})
+        }
+    );
 }
-
-exports.post_game_list = function(req, res, next){
-  let sort_option = req.body.sort_by;
-
-  switch(sort_option){
-    case 'alphabet':
-      console.log('sorted by alphabet')
-      sort_option = 'title';
-      break;
-    case 'platform':
-      console.log('sorted by platform')
-      sort_option= 'platform.name';
-      break;
-    case 'publisher':
-      console.log('sorted by publisher')
-      sort_option= 'publisher.name';
-  }
-
-  Game.find({})
-      .populate('genre')
-      .populate('publisher')
-      .populate('platform')
-      .sort([['publisher.name', 'ascending']])
-      .exec(function(err, games){
-        if(err){ return next(err); }
-        console.log(games[0].publisher.name);
-        res.render('game_list', {title: 'Games', games_list: games})
-      });
-}
-
 exports.get_game = function(req, res, next){
   Game.findById(req.params.id)
     .populate('genre')
@@ -230,5 +208,12 @@ exports.post_game_update = [
     }
   }
 ];
+
+function sortBy(sort_by1, sort_by2) {
+  return function(a, b) {
+    console.log(a[sort_by1][sort_by2])
+    if(a[sort_by1][sort_by2] > b[sort_by1][sort_by2]){return 1;}
+  };
+}
 
 module.exports

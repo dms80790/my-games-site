@@ -19,8 +19,11 @@ exports.get_game_list = function(req, res, next){
         .populate('publisher')
         .exec(function(err, games){
           if(err){ return next(err); }
+          console.log(games);
           if(sort_by1 && sort_by2){
             games.sort(sortBy(sort_by1, sort_by2));
+            console.log('#########\n###########\n###########\n##########');
+            console.log(games)
           }
           res.render('game_list', {title: 'Games', games_list: games})
         }
@@ -33,7 +36,6 @@ exports.get_game = function(req, res, next){
     .populate('platform')
     .exec(function(err, game){
       if(err){ return next(err); }
-      console.log(game.platform);
       return res.render('game_detail', {title: 'Game: ', game:game});
     });
 }
@@ -211,8 +213,11 @@ exports.post_game_update = [
 
 function sortBy(sort_by1, sort_by2) {
   return function(a, b) {
-    console.log(a[sort_by1][sort_by2])
-    if(a[sort_by1][sort_by2] > b[sort_by1][sort_by2]){return 1;}
+    if(a[sort_by1][sort_by2] > b[sort_by1][sort_by2]){
+      return 1;
+    } else{
+      return -1;
+    }
   };
 }
 

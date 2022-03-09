@@ -26,11 +26,11 @@ block content
       dd Status:
         if instance.status == 'Available'
           span.text-success  #{instance.status}
-        else if instance.status == 'Maintenance'
-          span.text-danger  #{instance.status}
-        else
+        else if instance.status == 'Reserved' || instance.status == 'Loaned'
           span.text-warning  #{instance.status}
+        else
+          span.text-danger  #{instance.status}
         if instance.status != 'Available'
-          span  (Due: #{instance.due_date_formatted} )
+          span  (Available: #{instance.due_date_formatted} )
     else
       p There are no game copies in this library.

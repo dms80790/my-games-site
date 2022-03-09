@@ -52,7 +52,7 @@ exports.post_gameinstance_create = [
   body('game', 'A game must be selected!').escape(),
   body('isbn', 'Invalid ISBN. Must be a number').trim().isNumeric().isLength({min:1}),
   body('status', 'A status must be selected!').escape(),
-  body('due_back').optional({checkFalsy: true}).isISO8601().toDate(),
+  body('due_back', 'Invalid Date!').optional({checkFalsy: true}).isISO8601().toDate(),
 
   (req, res, next) => {
     let errors = validationResult(req);
@@ -61,7 +61,7 @@ exports.post_gameinstance_create = [
       game: req.body.game,
       isbn: req.body.isbn,
       status: req.body.status,
-      due_back: req.body.due_back
+      dueBack: req.body.due_back
     });
 
     if(!errors.isEmpty()){

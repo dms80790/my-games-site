@@ -6,7 +6,7 @@ const GameInstanceSchema = new Schema({
   game: {type: Schema.Types.ObjectId, ref: 'Game'},
   isbn: {type: String, required: true, maxLength: 100},
   status: {type: String, required: true, enum:['Unreleased', 'Available', 'Loaned', 'Reserved']},
-  due_date: {type: Date, required: true, default: Date.now}
+  dueBack: {type: Date, required: true, default: Date.now}
 });
 
 GameInstanceSchema.virtual('url').get(function(){
@@ -14,11 +14,11 @@ GameInstanceSchema.virtual('url').get(function(){
 });
 
 GameInstanceSchema.virtual('due_date_formatted').get(function(){
-  return DateTime.fromJSDate(this.due_date).toLocaleString(DateTime.DATE_MED);
+  return DateTime.fromJSDate(this.dueBack).toLocaleString(DateTime.DATE_MED);
 })
 
 GameInstanceSchema.virtual('game_form_date').get(function(){
-	return DateTime.fromJSDate(this.due_date).toFormat('yyyy') + '-' + DateTime.fromJSDate(this.due_date).toFormat('LL') + '-' + DateTime.fromJSDate(this.due_date).toFormat('dd') ;
+	return DateTime.fromJSDate(this.dueBack).toFormat('yyyy') + '-' + DateTime.fromJSDate(this.dueBack).toFormat('LL') + '-' + DateTime.fromJSDate(this.dueBack).toFormat('dd') ;
 })
 
 module.exports = mongoose.model('Game Instance', GameInstanceSchema);

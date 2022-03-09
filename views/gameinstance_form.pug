@@ -25,7 +25,7 @@ block content
 
     div.form-group
       label(for='due_back') Date when game available:
-      input#due_back.form-control(type='date' name='due_back' value=(undefined===gameinstance? '' : gameinstance.game_form_date))
+      input#due_back.form-control(type='date' name='due_back' value=(gameinstance==null) ? '': gameinstance.game_form_date)
 
     button.btn.btn-primary(type='submit') Submit
 

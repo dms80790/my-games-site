@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{title} !{game.title}
-  p #[strong Summary: ] !{game.description}
+  p(style='max-width:900px') #[strong Summary: ] !{game.description}
   p #[strong Genre(s): ]
     each genre, index in game.genre
       a(href=genre.url) !{genre.name}

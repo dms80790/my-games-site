@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{title}: #{gameinstance._id}
-  p Game: 
+  p Game:
     a(href=gameinstance.game.url) #{gameinstance.game.title}
   p ISBN: #{gameinstance.isbn}
   p Status:
@@ -15,7 +15,7 @@ block content
     else if gameinstance.status == 'Unreleased'
         span.text-warning Unreleased
   if gameinstance.status != 'Available'
-    p Date Available: #{gameinstance.due_date_formatted}
+    p Date Available: !{gameinstance.due_date_formatted}
 
   hr
   p

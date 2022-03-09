@@ -9,7 +9,7 @@ block content
       select#game.form-control(type='select' name='game' required, value=(gameinstance == null) ? '' : gameinstance.game)
         option(value='') Select Game
         each game in game_list
-          option(value=game._id) #{game.title}
+          option(value=game._id selected=(gameinstance==null) ? '': (game=='selected') ? 'selected': '') #{game.title}
     div.form-group
       label(for='isbn') ISBN:
         input#isbn.form-control(type='text' name='isbn' required placeholder='Enter ISBN' value=(gameinstance == null) ? '' : gameinstance.isbn)
@@ -17,11 +17,11 @@ block content
     div.form-group
       label(for='status') Status:
       select#status.form-control(type='select' name='status' required, value=(gameinstance == null) ? '' : gameinstance.status)
-        option(value='') Select Status
-        option(value='Available') Available
-        option(value='Reserved') Reserved
-        option(value='Loaned') Loaned
-        option(value='Unreleased') Unreleased
+        option(value='' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Select Status
+        option(value='Available' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Available
+        option(value='Reserved' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Reserved
+        option(value='Loaned' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Loaned
+        option(value='Unreleased' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Unreleased
 
     div.form-group
       label(for='due_back') Date when game available:

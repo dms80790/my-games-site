@@ -4,15 +4,15 @@ block content
   form(method='GET', action='')
     div.form-group
       label(for='sort_by') Sort By:
-      select#sort_by.form-control(type='select' name='sort_by' value=(sort_option==null) ? '': sort_option)
-        option(value='') Choose Sort
-        option(value='title') Title
-        option(value='availability') Availability
+      select#sort_by.form-control(type='select' name='sort_by' value=(sort_option==null ? '': sort_option))
+        option(value='' selected=sort_by ? false : true) Choose Sort
+        option(value='title' selected=sort_by == 'title' ? true : false) Title
+        option(value='availability' selected=sort_by == 'availability' ? true : false) Availability
       label(for='filter_by') Filter Game:
       select#filter_by.form-control(type='select' name='filter_by' placeholder='Select sort option' value=(sort_option==null) ? '': sort_option)
-        option(value='') Choose Game
+        option(value='' selected=filter_by ? false : true) Choose Game
         each game in game_list
-          option(value=game.id) !{game.title}
+          option(value=game.id selected=filter_by ? (filter_by.toString() ==game._id.toString() ? true : false): false) !{game.title}
 
     button.btn.btn-primary(type='submit') Apply
 

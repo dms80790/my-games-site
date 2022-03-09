@@ -6,10 +6,10 @@ block content
   form(method='POST', action='')
     div.form-group
       label(for='game') Game:
-      select#game.form-control(type='select' name='game' required, value=(gameinstance == null) ? '' : gameinstance.game)
-        option(value='') Select Game
+      select#game.form-control(type='select' name='game' required)
+        option(value='' disabled selected=(gameinstance==null)? true:false) Select Game
         each game in game_list
-          option(value=game._id selected=(gameinstance==null) ? '': (game=='selected') ? 'selected': '') #{game.title}
+          option(value=game._id selected=(gameinstance==null) ? false: (gameinstance.game._id.toString() == game._id.toString()) ? true: false) !{game.title}
     div.form-group
       label(for='isbn') ISBN:
         input#isbn.form-control(type='text' name='isbn' required placeholder='Enter ISBN' value=(gameinstance == null) ? '' : gameinstance.isbn)
@@ -17,11 +17,11 @@ block content
     div.form-group
       label(for='status') Status:
       select#status.form-control(type='select' name='status' required, value=(gameinstance == null) ? '' : gameinstance.status)
-        option(value='' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Select Status
-        option(value='Available' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Available
-        option(value='Reserved' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Reserved
-        option(value='Loaned' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Loaned
-        option(value='Unreleased' selected=(gameinstance==null) ? '': (gameinstance.status=='selected') ? 'selected': '') Unreleased
+        option(value='' disabled selected=(gameinstance==null)? true:false) Select Status
+        option(value='Available' selected=(gameinstance==null) ? false: (gameinstance.status=='Available') ? true: false) Available
+        option(value='Reserved' selected=(gameinstance==null) ? false: (gameinstance.status=='Reserved') ? true: false) Reserved
+        option(value='Loaned' selected=(gameinstance==null) ? false: (gameinstance.status=='Loaned') ? true: false) Loaned
+        option(value='Unreleased' selected=(gameinstance==null) ? false: (gameinstance.status=='Unreleased') ? true: false) Unreleased
 
     div.form-group
       label(for='due_back') Date when game available:

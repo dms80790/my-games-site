@@ -6,7 +6,7 @@ const GameInstanceSchema = new Schema({
   game: {type: Schema.Types.ObjectId, ref: 'Game'},
   isbn: {type: String, required: true, maxLength: 100},
   status: {type: String, required: true, enum:['Unreleased', 'Available', 'Loaned', 'Reserved']},
-  dueBack: {type: Date, required: true, default: Date.now}
+  dueBack: {type: Date, required: true}
 });
 
 GameInstanceSchema.virtual('url').get(function(){

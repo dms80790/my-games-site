@@ -17,7 +17,7 @@ exports.get_game_list = function(req, res, next){
           if(req.query.sort_by){
             games.sort(sortBy(req.query.sort_by));
           }
-          res.render('game_list', {title: 'Games', games_list: games})
+          res.render('game_list', {title: 'Games', games_list: games, sort_by:req.query.sort_by})
         }
     );
 }

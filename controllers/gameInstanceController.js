@@ -22,7 +22,7 @@ exports.get_gameinstance_list = function(req, res, next){
       if(req.query.sort_by){
         results.gameinstance_list.sort(sortBy(req.query.sort_by));
       }
-      res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games});
+      res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games, sort_by: req.query.sort_by, filter_by: req.query.filter_by});
   });
 }
 
@@ -57,12 +57,16 @@ exports.post_gameinstance_create = [
   (req, res, next) => {
     let errors = validationResult(req);
 
+    console.log(req.body.due_back);
+
     let gameinstance = new GameInstance({
       game: req.body.game,
       isbn: req.body.isbn,
       status: req.body.status,
       dueBack: req.body.due_back
     });
+
+    console.log(gameinstance.dueBack);
 
     if(!errors.isEmpty()){
       Game.find({}, function(err, games){
@@ -118,7 +122,7 @@ exports.post_gameinstance_update = [
       game: req.body.game,
       isbn: req.body.isbn,
       status: req.body.status,
-      due_back: req.body.due_back,
+      dueBack: req.body.due_back,
       _id: req.params.id
     });
 

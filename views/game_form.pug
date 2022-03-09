@@ -19,7 +19,8 @@ block content
             label(for=genre._id) #{genre.name}
       br
       label(for='publisher') Publisher
-      select#publisher.form-control(placeholder='Select Publisher' required type='select' name='publisher' value=(game==null) ? '': game.platform)
+      select#publisher.form-control(required type='select' name='publisher' value=(game==null) ? '': game.platform)
+        option(value='') Select Publisher
         each publisher in publisher_list
           option(value=publisher._id) #{publisher.name}
 
@@ -31,7 +32,7 @@ block content
             label(for=platform._id) #{platform.name}
 
       label(for='releaseDate') Release Date:
-      input#releaseDate.form-control(type='date' name='release_date' placeholder=Date.now value=(game==null) ? '': game.release_date)
+      input#releaseDate.form-control(type='date' name='release_date' placeholder=Date.now value=(game==null) ? '': game.game_form_date)
 
       button.btn.btn-primary(type='submit') Submit
 

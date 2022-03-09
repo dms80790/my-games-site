@@ -17,6 +17,10 @@ GameSchema.virtual('url').get(function(){
 
 GameSchema.virtual('release_date_formatted').get(function(){
   return DateTime.fromJSDate(this.release_date).toLocaleString(DateTime.DATE_MED);
+});
+
+GameSchema.virtual('game_form_date').get(function(){
+	return DateTime.fromJSDate(this.release_date).toFormat('yyyy') + '-' + DateTime.fromJSDate(this.release_date).toFormat('LL') + '-' + DateTime.fromJSDate(this.release_date).toFormat('dd') ;
 })
 
 //create the model from the schema and export

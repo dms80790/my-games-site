@@ -17,4 +17,8 @@ GameInstanceSchema.virtual('due_date_formatted').get(function(){
   return DateTime.fromJSDate(this.due_date).toLocaleString(DateTime.DATE_MED);
 })
 
+GameInstanceSchema.virtual('game_form_date').get(function(){
+	return DateTime.fromJSDate(this.due_date).toFormat('yyyy') + '-' + DateTime.fromJSDate(this.due_date).toFormat('LL') + '-' + DateTime.fromJSDate(this.due_date).toFormat('dd') ;
+})
+
 module.exports = mongoose.model('Game Instance', GameInstanceSchema);

@@ -15,6 +15,10 @@ exports.get_gameinstance_list = function(req, res, next){
     }
   }, function(err, results){
       if(err){ return next(err); }
+      if(req.query.filter_by){
+        results.gameinstance_list = results.gameinstance_list.filter(instance => {
+          return instance.game._id == req.query.filter_by})
+      }
       if(req.query.sort_by){
         results.gameinstance_list.sort(sortBy(req.query.sort_by));
       }

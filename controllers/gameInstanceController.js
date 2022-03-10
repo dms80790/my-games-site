@@ -50,14 +50,17 @@ exports.get_gameinstance_create = function(req, res, next){
 
 exports.post_gameinstance_create = [
   body('game', 'A game must be selected!').escape(),
-  body('isbn', 'Invalid ISBN. Must be a number').trim().isNumeric().isLength({min:1}),
+  body('isbn', 'Invalid ISBN. Must be a number').trim().isNumeric().isLength({min:1}).escape(),
   body('status', 'A status must be selected!').escape(),
-  body('due_back', 'Invalid Date!').optional({checkFalsy: true}).isISO8601().toDate(),
+  body('due_back').optional({checkFalsy: true}).isISO8601().toDate().withMessage('Date must be in correct format!')
+        .custom(value => {if (value < Date.now()){
+          }else{
+            return true;
+          }
+        }).withMessage('Due date cannot be before today!'),
 
   (req, res, next) => {
     let errors = validationResult(req);
-
-    console.log(req.body.due_back);
 
     let gameinstance = new GameInstance({
       game: req.body.game,
@@ -66,12 +69,10 @@ exports.post_gameinstance_create = [
       dueBack: req.body.due_back
     });
 
-    console.log(gameinstance.dueBack);
-
     if(!errors.isEmpty()){
       Game.find({}, function(err, games){
           if(err){ return next(err); }
-          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance});
+          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance, errors:errors.array()});
       });
     } else{
         gameinstance.save(function(err){
@@ -129,7 +130,7 @@ exports.post_gameinstance_update = [
     if(!errors.isEmpty()){
       Game.find({}, function(err, games){
           if(err){ return next(err); }
-          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance});
+          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance, errors:errors.array()});
       });
     } else{
         GameInstance.findByIdAndUpdate(req.params.id, gameinstance, function(err){

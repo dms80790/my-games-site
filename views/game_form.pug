@@ -14,7 +14,7 @@ block content
       div.form-group(style='width:600px')
         p Genres
         each genre in genre_list
-          div(style='display: inline; padding-right:10px;')
+          div(style='display: inline-block; padding-right:10px;')
             input.checkbox-input(type='checkbox' name='genre' id=genre._id value=genre._id checked=genre.checked)
             label(for=genre._id) #{genre.name}
       br
@@ -27,7 +27,7 @@ block content
       div.form-group(style='width:600px')
         p Platforms
         each platform in platform_list
-          div(style='display: inline; padding-right:10px;')
+          div(style='display: inline-block; padding-right:10px;')
             input.checkbox-input(type='checkbox' name='platform' id=platform._id value=platform._id checked=platform.checked)
             label(for=platform._id) #{platform.name}
 

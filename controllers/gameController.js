@@ -44,7 +44,7 @@ exports.get_game_create = function(req, res, next){
     }
   }, function(err, results){
       if(err){ return next(err); }
-      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, errors:errors.array()});
+      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres});
     }
 )};
 
@@ -156,7 +156,7 @@ exports.get_game_update = function(req, res, next){
 					}
 				}
 			}
-      res.render('game_form', {title: 'Update Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game, errors:errors.array()});
+      res.render('game_form', {title: 'Update Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game});
     }
 )};
 

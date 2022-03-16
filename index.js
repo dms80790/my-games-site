@@ -6,9 +6,6 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const redis = require('redis');
-const redisClient = redis.createClient();
-const redisStore = require('connect-redis')(session);
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
@@ -26,10 +23,6 @@ var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-redisClient.on('error', (err) => {
-  console.log('Redis error: ', err);
-});
-
 app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -40,13 +33,21 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(session({
   secret: "Your secret key",
-  name: '_redis',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false },
-  store: new redisStore({ host: 'localhost', port: 6739, client: redisClient, ttl: 86400})
+  cookie: { secure: false }
 }));
 
+/*
+app.use(function checkAuth(req, res, next) {
+  if (!req.session.user_id) {
+    res.send('You are not authorized to view this page');
+  } else {
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+  }
+});
+*/
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);

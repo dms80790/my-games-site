@@ -23,7 +23,7 @@ exports.post_login = [
               console.log('comparing passwords...');
               if(err){ return next(err); }
               if(match){
-                req.session.user = user;
+                req.session.user_id = user._id;
                 console.log('user signed in');
                 return res.redirect('/catalog');
               } else{
@@ -70,3 +70,8 @@ exports.post_signup = [
     });
   }
 ];
+
+exports.get_logout = function (req, res) {
+  delete req.session.user_id;
+  res.render('login', {message: 'Successfully logged out!'});
+};

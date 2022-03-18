@@ -14,8 +14,13 @@ html(lang="en")
 		div.header
 			a(href='/catalog')
 				h1 GameLibrary
-			a(href='/users/login')
-				button#login-btn.btn.btn-primary Log In
+			if !user
+				a(href='/users/login')
+					button#login-btn.btn.btn-primary Log In
+			else
+				a(href='/users/:id') Username
+				a(href='/users/logout')
+					button#login-btn.btn.btn-primary Log Out
 		div(class='container-fluid')
 			div(class='row')
 				div(class='col-sm-2')

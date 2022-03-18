@@ -17,7 +17,7 @@ exports.get_game_list = function(req, res, next){
           if(req.query.sort_by){
             games.sort(sortBy(req.query.sort_by));
           }
-          res.render('game_list', {title: 'Games', games_list: games, sort_by:req.query.sort_by})
+          res.render('game_list', {title: 'Games', games_list: games, sort_by:req.query.sort_by, user: req.session.id})
         }
     );
 }
@@ -29,7 +29,7 @@ exports.get_game = function(req, res, next){
     .populate('platform')
     .exec(function(err, game){
       if(err){ return next(err); }
-      return res.render('game_detail', {title: 'Game: ', game:game});
+      return res.render('game_detail', {title: 'Game: ', game:game, user: req.session.id});
     });
 }
 
@@ -44,7 +44,7 @@ exports.get_game_create = function(req, res, next){
     }
   }, function(err, results){
       if(err){ return next(err); }
-      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres});
+      res.render('game_form', {title: 'Create Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, user: req.session.id});
     }
 )};
 
@@ -80,7 +80,7 @@ exports.post_game_create = [
         }
       }, function(err, results){
           if(err){ return next(err); }
-          res.render('game_form', {title: 'Create Game:', game: game, publisher_list: results.publishers, genre_list: results.genres, platform_list: results.platforms, errors:errors.array()});
+          res.render('game_form', {title: 'Create Game:', game: game, publisher_list: results.publishers, genre_list: results.genres, platform_list: results.platforms, errors:errors.array(), user: req.session.id});
         }
     );
   } else{
@@ -114,7 +114,7 @@ exports.get_game_delete = function(req, res, next){
       res.redirect('/catalog/games');
     }
     console.log(results.game);
-    res.render('game_delete', {title:'Delete Game: ', game: results.game, gameinstance_list: results.instances})
+    res.render('game_delete', {title:'Delete Game: ', game: results.game, gameinstance_list: results.instances, user: req.session.id})
     }
   );
 }
@@ -156,7 +156,7 @@ exports.get_game_update = function(req, res, next){
 					}
 				}
 			}
-      res.render('game_form', {title: 'Update Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game});
+      res.render('game_form', {title: 'Update Game', publisher_list: results.publishers, platform_list: results.platforms, genre_list: results.genres, game: results.game, user: req.session.id});
     }
 )};
 
@@ -192,7 +192,7 @@ exports.post_game_update = [
         }
       }, function(err, results){
           if(err){ return next(err); }
-          res.render('game_form', {title: 'Create Game:', game: game, publisher_list: results.publishers, genre_list: results.genres, platform_list: results.platforms, errors:errors.array()});
+          res.render('game_form', {title: 'Create Game:', game: game, publisher_list: results.publishers, genre_list: results.genres, platform_list: results.platforms, errors:errors.array(), user: req.session.id});
         }
     );
   } else{

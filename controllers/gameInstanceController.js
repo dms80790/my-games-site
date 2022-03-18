@@ -22,7 +22,7 @@ exports.get_gameinstance_list = function(req, res, next){
       if(req.query.sort_by){
         results.gameinstance_list.sort(sortBy(req.query.sort_by));
       }
-      res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games, sort_by: req.query.sort_by, filter_by: req.query.filter_by});
+      res.render('gameinstance_list', {title: 'Game Instances', gameinstance_list: results.gameinstance_list, game_list: results.games, sort_by: req.query.sort_by, filter_by: req.query.filter_by, user: req.session.id});
   });
 }
 
@@ -37,14 +37,14 @@ exports.get_gameinstance = function(req, res, next){
                   err.status = 404;
                   return next(err);
                 }
-                return res.render('gameinstance_detail', {title:"Game Instance", gameinstance: result});
+                return res.render('gameinstance_detail', {title:"Game Instance", gameinstance: result, user: req.session.id});
               });
 }
 
 exports.get_gameinstance_create = function(req, res, next){
   Game.find({}, function(err, games){
       if(err){ return next(err); }
-      res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games});
+      res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, user: req.session.id});
   });
 }
 
@@ -72,7 +72,7 @@ exports.post_gameinstance_create = [
     if(!errors.isEmpty()){
       Game.find({}, function(err, games){
           if(err){ return next(err); }
-          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance, errors:errors.array()});
+          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance, errors:errors.array(), user: req.session.id});
       });
     } else{
         gameinstance.save(function(err){
@@ -86,7 +86,7 @@ exports.post_gameinstance_create = [
 exports.get_gameinstance_delete = function(req, res, next){
   GameInstance.findById(req.params.id, function(err, gameinstance){
     if(err){ return next(err); }
-    return res.render('gameinstance_delete', {title: 'Delete Game Instance', gameinstance: gameinstance});
+    return res.render('gameinstance_delete', {title: 'Delete Game Instance', gameinstance: gameinstance, user: req.session.id});
   });
 };
 
@@ -106,7 +106,7 @@ exports.get_gameinstance_update = function(req, res, next){
     }
   }, function(err, results){
     if(err){ return next(err); }
-    return res.render('gameinstance_form', {title: 'Update Game Instance', gameinstance: results.gameinstance, game_list: results.games});
+    return res.render('gameinstance_form', {title: 'Update Game Instance', gameinstance: results.gameinstance, game_list: results.games, user: req.session.id});
   }
 )};
 
@@ -130,7 +130,7 @@ exports.post_gameinstance_update = [
     if(!errors.isEmpty()){
       Game.find({}, function(err, games){
           if(err){ return next(err); }
-          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance, errors:errors.array()});
+          res.render('gameinstance_form', {title: 'Create Game Instance', game_list: games, gameinstance: gameinstance, errors:errors.array(), user: req.session.id});
       });
     } else{
         GameInstance.findByIdAndUpdate(req.params.id, gameinstance, function(err){

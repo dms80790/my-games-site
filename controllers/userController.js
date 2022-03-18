@@ -23,8 +23,9 @@ exports.post_login = [
               console.log('comparing passwords...');
               if(err){ return next(err); }
               if(match){
-                req.session.user_id = user._id;
+                req.session.id = user._id;
                 console.log('user signed in');
+                console.log("session id: " +req.session.id)
                 return res.redirect('/catalog');
               } else{
                   let errors = [new Error("Invalid password")];

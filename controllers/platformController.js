@@ -118,3 +118,5 @@ exports.post_platform_delete = function(req, res, next){
     return res.redirect('/catalog/platforms');
   })
 }
+
+module.exports

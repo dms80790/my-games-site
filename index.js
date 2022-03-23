@@ -32,30 +32,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(session({
-  secret: "Your secret key",
+  secret: "01101011",
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { myCookie: 'chocolate chip' }
 }));
 
-/*
-app.use(function checkAuth(req, res, next) {
-  if (!req.session.user_id) {
-    res.send('You are not authorized to view this page');
-  } else {
-    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    next();
-  }
-});
-*/
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);
 
-/*app.use(function(req, res, next){
-  next(createError(404));
-});*/
-
+//error handler
 app.use(function(err, req, res, next){
   console.log('error function called');
   res.locals.message = err.message;
@@ -64,5 +51,14 @@ app.use(function(err, req, res, next){
   res.status(err.status || 500);
   res.render('error', {error: err});
 });
+
+function checkAuth(req, res, next) {
+  if (!req.session.user_id) {
+    res.send('You are not authorized to view this page');
+  } else {
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+  }
+}
 
 app.listen(3000);

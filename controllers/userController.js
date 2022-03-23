@@ -23,9 +23,9 @@ exports.post_login = [
               console.log('comparing passwords...');
               if(err){ return next(err); }
               if(match){
-                req.session.id = user._id;
+                req.session.user_id = user._id;
                 console.log('user signed in');
-                console.log("session id: " +req.session.id)
+                console.log("session user id: " +req.session.user_id)
                 return res.redirect('/catalog');
               } else{
                   let errors = [new Error("Invalid password")];
@@ -73,6 +73,12 @@ exports.post_signup = [
 ];
 
 exports.get_logout = function (req, res) {
-  delete req.session.user_id;
-  res.render('login', {message: 'Successfully logged out!'});
+  req.session.destroy(function(err){
+    if(err){ next(err); }
+    else{
+      req.session = null;
+      console.log('session destroyed');
+      res.redirect('/users/login');
+    }
+  });
 };

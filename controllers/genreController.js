@@ -12,7 +12,7 @@ exports.get_genre_list = function(req, res, next){
          if(req.session.user){
            console.log('you are currently logged in as ' + req.session.user.username);
          }
-         res.render('genre_list', {title: 'Genres', genre_list: genres, user: req.session.id});
+         res.render('genre_list', {title: 'Genres', genre_list: genres, user: req.session.user_id});
        });
 };
 
@@ -32,13 +32,13 @@ exports.get_genre = function(req, res, next){
         err.status = 404;
         return next(err);
       }
-      res.render('genre_detail', {title: 'Genre Detail', genre: results.genre, genre_games: results.genre_games, user: req.session.id});
+      res.render('genre_detail', {title: 'Genre Detail', genre: results.genre, genre_games: results.genre_games, user: req.session.user_id});
     }
   );
 }
 
 exports.get_genre_create = function(req, res, next){
-  return res.render('genre_form', {title: 'Create Genre', user: req.session.id});
+  return res.render('genre_form', {title: 'Create Genre', user: req.session.user_id});
 }
 
 exports.post_genre_create = [
@@ -54,7 +54,7 @@ exports.post_genre_create = [
 
     //there are errors in the form submission
     if(!errors.isEmpty()){
-      res.render('genre_form', {title:'Create Genre', errors:errors.array(), user: req.session.id})
+      res.render('genre_form', {title:'Create Genre', errors:errors.array(), user: req.session.user_id})
     } else {
       //make sure the genre doesnt already exist
       Genre.findOne({name: req.body.name}, function(err, found_genre){
@@ -86,7 +86,7 @@ exports.get_genre_delete = function(req, res, next){
       }
     }, function(err, results){
       if(err){ return next(err); }
-      return res.render('genre_delete', {title: 'Delete Genre: ', genre: results.genre, games_list: results.games, user: req.session.id});
+      return res.render('genre_delete', {title: 'Delete Genre: ', genre: results.genre, games_list: results.games, user: req.session.user_id});
     }
 )};
 
@@ -105,7 +105,7 @@ exports.get_genre_update = function(req, res, next){
       err.status = 404;
       return next(err);
     }
-    return res.render('genre_form', {title: 'Update Genre: ' + genre.name, genre: genre, user: req.session.id});
+    return res.render('genre_form', {title: 'Update Genre: ' + genre.name, genre: genre, user: req.session.user_id});
   })
 }
 
@@ -123,7 +123,7 @@ exports.post_genre_update = [
 
  //there are errors in the form submission
  if(!errors.isEmpty()){
-   res.render('genre_form', {title:'Create Genre', genre: genre, errors:errors.array(), user: req.session.id})
+   res.render('genre_form', {title:'Create Genre', genre: genre, errors:errors.array(), user: req.session.user_id})
  } else {
    //make sure the genre doesnt already exist
    Genre.findOne({name: req.body.name}, function(err, found_genre){

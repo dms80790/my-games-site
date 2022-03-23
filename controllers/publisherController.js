@@ -25,8 +25,9 @@ exports.get_home_page = function(req, res, next){
       },
     }, function(err, results){
       if(err){ return next(err); }
-      console.log("Current user: " + req.session.id)
-      return res.render('index', {title: 'Game Library Home', data: results, error: err, user: req.session.id});
+      console.log("Current user: " + req.session.user_id)
+      console.log('my cookie: ' + req.session.cookie.myCookie);
+      return res.render('index', {title: 'Game Library Home', data: results, error: err, user: req.session.user_id});
     }
   );
 }
@@ -38,7 +39,7 @@ exports.get_publisher_list = function(req, res, next){
         .exec(function(err, publishers){
           if(err){ return next(err); }
           console.log(req.session.id);
-          return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers, user: req.session.id})
+          return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers, user: req.session.user_id})
   });
 }
 
@@ -52,12 +53,12 @@ exports.get_publisher = function(req, res, next){
     }
   }, function(err, results){
     if(err){ return next(err); }
-    return res.render('publisher_detail', {title: 'Publisher: ', publisher: results.publisher, games_list: results.games, user: req.session.id});
+    return res.render('publisher_detail', {title: 'Publisher: ', publisher: results.publisher, games_list: results.games, user: req.session.user_id});
   });
 }
 
 exports.get_publisher_create = function(req, res, next){
-    return res.render('publisher_form', {title: 'Create Publisher'});
+    return res.render('publisher_form', {title: 'Create Publisher', user: req.session.user_id});
 }
 
 exports.post_publisher_create = [
@@ -73,7 +74,7 @@ exports.post_publisher_create = [
     });
 
     if(!errors.isEmpty()){
-      return res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array(), user: req.session.id})
+      return res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array(), user: req.session.user_id})
     } else{
       //there are no errors, so check if publisher already exists
       Publisher.findOne({name: req.body.name}, function(err, publisher_found){
@@ -103,7 +104,7 @@ exports.get_publisher_delete = function(req, res, next){
   }, function(err, results){
     if(err){ return next(err); }
     console.log(results.publisher);
-    return res.render('publisher_delete', {title: 'Delete Publisher: ', publisher: results.publisher, games_list: results.games, user: req.session.id});
+    return res.render('publisher_delete', {title: 'Delete Publisher: ', publisher: results.publisher, games_list: results.games, user: req.session.user_id});
   }
 )};
 
@@ -118,7 +119,7 @@ exports.post_publisher_delete = function(req, res, next){
 exports.get_publisher_update = function(req, res, next){
   Publisher.findById(req.params.id, function(err, publisher){
     if(err){ return next(err); }
-    return res.render('publisher_form', {title: 'Update Publisher: ' + publisher.name, publisher: publisher, user: req.session.id});
+    return res.render('publisher_form', {title: 'Update Publisher: ' + publisher.name, publisher: publisher, user: req.session.user_id});
   });
 }
 
@@ -136,7 +137,7 @@ exports.post_publisher_update = [
     });
 
     if(!errors.isEmpty()){
-      return res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array(), user: req.session.id})
+      return res.render('publisher_form', {title: 'Create Publisher', publisher: publisher, errors:errors.array(), user: req.session.user_id})
     } else{
         Publisher.findByIdAndUpdate(req.params.id, publisher, function(err){
             if(err){ return err(next); }

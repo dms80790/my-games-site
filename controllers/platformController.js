@@ -107,7 +107,6 @@ exports.get_platform_delete = function(req, res, next){
     }
   }, function(err, results){
     if(err){ return next(err); }
-    console.log('got here');
     return res.render('platform_delete', {title: 'Delete Platform: ', platform: results.platform, games_list: results.games, user: req.session.user_id});
   });
 }

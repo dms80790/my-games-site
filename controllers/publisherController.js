@@ -25,8 +25,8 @@ exports.get_home_page = function(req, res, next){
       },
     }, function(err, results){
       if(err){ return next(err); }
-      console.log("Current user: " + req.session.user_id)
-      console.log('my cookie: ' + req.session.cookie.myCookie);
+      req.session.cookie.name = "timmy longsmokes";
+      res.cookie('place', 'kennywood');
       return res.render('index', {title: 'Game Library Home', data: results, error: err, user: req.session.user_id});
     }
   );
@@ -38,7 +38,6 @@ exports.get_publisher_list = function(req, res, next){
         .sort({'name': 1})
         .exec(function(err, publishers){
           if(err){ return next(err); }
-          console.log(req.session.id);
           return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers, user: req.session.user_id})
   });
 }
@@ -103,7 +102,6 @@ exports.get_publisher_delete = function(req, res, next){
     }
   }, function(err, results){
     if(err){ return next(err); }
-    console.log(results.publisher);
     return res.render('publisher_delete', {title: 'Delete Publisher: ', publisher: results.publisher, games_list: results.games, user: req.session.user_id});
   }
 )};

@@ -8,6 +8,10 @@ let UserSchema = new Schema({
   password: { type: String, required: true }
 });
 
+UserSchema.virtual('url').get(function(){
+  return '/users/' + this._id;
+});
+
 UserSchema.pre('save', function(next) {
   let user = this;
 

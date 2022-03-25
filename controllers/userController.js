@@ -20,12 +20,10 @@ exports.post_login = [
           if(user){
             console.log('user found');
             user.comparePassword(req.body.password, function(err, match){
-              console.log('comparing passwords...');
               if(err){ return next(err); }
               if(match){
-                req.session.user_id = user._id;
+                req.session.user_id = user;
                 console.log('user signed in');
-                console.log("session user id: " +req.session.user_id)
                 return res.redirect('/catalog');
               } else{
                   let errors = [new Error("Invalid password")];
@@ -90,6 +88,15 @@ exports.checkAuth = function(req, res, next) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     next();
   }
+}
+
+exports.get_user_profile = function(req, res, next){
+  User.findById(req.params.id, function(err, user){
+    if(err){ return next(err); }
+    else{
+      res.render('user_profile', {user: user});
+    }
+  })
 }
 
 module.exports;

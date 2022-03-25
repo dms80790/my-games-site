@@ -10,4 +10,6 @@ router.post('/signup', user_controller.post_signup);
 
 router.get('/logout', user_controller.get_logout);
 
+router.get('/:id', user_controller.get_user_profile);
+
 module.exports = router;

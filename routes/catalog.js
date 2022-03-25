@@ -7,6 +7,7 @@ const gameinstance_controller = require('../controllers/gameInstanceController')
 const genre_controller = require('../controllers/genreController');
 const platform_controller = require('../controllers/platformController');
 const user_controller = require('../controllers/userController');
+const api_controller = require('../controllers/api_callers');
 
 //home page route
 router.get('/', publisher_controller.get_home_page);
@@ -40,6 +41,7 @@ router.get('/game/:id/delete', user_controller.checkAuth, game_controller.get_ga
 router.post('/game/:id/delete', user_controller.checkAuth, game_controller.post_game_delete);
 router.get('/game/:id/', game_controller.get_game);
 router.get('/games', game_controller.get_game_list);
+router.get('/universalgames', game_controller.get_universal_games_list);
 
 //game instance routes
 router.get('/gameinstance/create', user_controller.checkAuth, gameinstance_controller.get_gameinstance_create);

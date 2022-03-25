@@ -5,6 +5,7 @@ const Platform = require('../models/platform');
 const GameInstance = require('../models/gameinstance')
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const api_callers = require('./api_callers');
 
 //game routes
 exports.get_game_list = function(req, res, next){
@@ -17,7 +18,6 @@ exports.get_game_list = function(req, res, next){
           if(req.query.sort_by){
             games.sort(sortBy(req.query.sort_by));
           }
-          console.log('session id: ' + req.session.id);
           res.render('game_list', {title: 'Games', games_list: games, sort_by:req.query.sort_by, user: req.session.user_id})
         }
     );
@@ -70,7 +70,6 @@ exports.post_game_create = [
     });
 
     if(!errors.isEmpty()){
-      console.log('errors: ' + errors[0].msg);
       async.parallel({
         publishers: function(callback){
           Publisher.find({}, callback);
@@ -90,7 +89,6 @@ exports.post_game_create = [
       if(game_found){
         res.redirect(game_found.url);
       } else{
-          console.log('saving game...');
           game.save(function(err){
             if(err){ return next(err); }
             return res.redirect(game.url);
@@ -114,7 +112,6 @@ exports.get_game_delete = function(req, res, next){
     if(results.game == null){
       res.redirect('/catalog/games');
     }
-    console.log(results.game);
     res.render('game_delete', {title:'Delete Game: ', game: results.game, gameinstance_list: results.instances, user: req.session.user_id})
     }
   );
@@ -204,6 +201,17 @@ exports.post_game_update = [
     }
   }
 ];
+
+exports.get_universal_games_list = function(req, res, next){
+  api_callers.api_req_games('https://api.rawg.io/api/platforms?key=0563b91ec2664d40a9371b83c2fedce7')
+  .then(response => {
+    let results = response.results;
+    res.render('universal_games_list', {games_list: results});
+  })
+  .catch(error => {
+    res.send(error)
+  })
+}
 
 function sortBy(field) {
   return function(a, b) {

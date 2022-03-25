@@ -9,9 +9,6 @@ exports.get_genre_list = function(req, res, next){
        .sort([['name', 'ascending']])
        .exec(function(err, genres){
          if(err){ return next(err); }
-         if(req.session.user){
-           console.log('you are currently logged in as ' + req.session.user.username);
-         }
          res.render('genre_list', {title: 'Genres', genre_list: genres, user: req.session.user_id});
        });
 };

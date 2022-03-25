@@ -56,6 +56,12 @@ dd{
   font-weight: bold;
 }
 
+p.userNameLink{
+  display: inline-block;
+  margin-top: 25px;
+  margin-right: 10px;
+}
+
 .bold{
   font-weight: bold;
 }

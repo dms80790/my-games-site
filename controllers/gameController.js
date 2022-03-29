@@ -203,14 +203,7 @@ exports.post_game_update = [
 ];
 
 exports.get_universal_games_list = function(req, res, next){
-  api_callers.api_req_games('https://api.rawg.io/api/platforms?key=0563b91ec2664d40a9371b83c2fedce7')
-  .then(response => {
-    let results = response.results;
-    res.render('universal_games_list', {games_list: results});
-  })
-  .catch(error => {
-    res.send(error)
-  })
+  //stub
 }
 
 function sortBy(field) {

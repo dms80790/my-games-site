@@ -4,6 +4,7 @@ const Publisher = require('../models/publisher');
 const GameInstance = require('../models/gameinstance');
 const Genre = require('../models/genre');
 const { body, validationResult } = require('express-validator');
+const api_callers = require('./api_callers');
 
 //publisher routes
 exports.get_home_page = function(req, res, next){
@@ -33,11 +34,13 @@ exports.get_home_page = function(req, res, next){
 }
 
 
+//////*****************************************************API CALLS IN THIS FUNCTION FOR TESTING */
 exports.get_publisher_list = function(req, res, next){
   Publisher.find({})
         .sort({'name': 1})
         .exec(function(err, publishers){
           if(err){ return next(err); }
+          api_callers.load_games();
           return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers, user: req.session.user_id})
   });
 }

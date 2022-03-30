@@ -5,7 +5,7 @@ const Platform = require('../models/platform');
 const GameInstance = require('../models/gameinstance')
 const async = require('async');
 const { body, validationResult } = require('express-validator');
-const api_callers = require('./api_callers');
+const UniversalGame = require('../models/universalgame');
 
 //game routes
 exports.get_game_list = function(req, res, next){
@@ -203,7 +203,12 @@ exports.post_game_update = [
 ];
 
 exports.get_universal_games_list = function(req, res, next){
-  //stub
+  UniversalGame.find({}).limit(25).sort({metacritic:-1}).exec(function(err, games){
+    if(err){ return next(err); }
+    else{
+      res.render('universal_game_list', {games_list: games});
+    }
+  });
 }
 
 function sortBy(field) {

@@ -40,7 +40,7 @@ exports.get_publisher_list = function(req, res, next){
         .sort({'name': 1})
         .exec(function(err, publishers){
           if(err){ return next(err); }
-          api_callers.load_games();
+          //api_callers.load_games();
           return res.render('publisher_list', {title: 'Publishers', publisher_list: publishers, user: req.session.user_id})
   });
 }

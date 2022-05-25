@@ -4,7 +4,8 @@
   "description": "a node/express based app that allows a user to store their video game collection",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dms80790/my-games-site/issues"
+  },
+  "engines": {
+    "node": "14.17"
   },
   "homepage": "https://github.com/dms80790/my-games-site#readme",
   "dependencies": {

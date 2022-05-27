@@ -2,18 +2,8 @@ extends layout
 
 block content
 	h1= title
-	p Welcome to #[em GameLibrary], a place to borrow your favorite games!
 
-	h1 Dynamic content
+	div.carousel-container
+		//each game in game_cards
+		div.card
 
-	if error
-		p Error getting dynamic content
-	else
-		p The library has the following record counts:
-
-		ul
-			li #[strong Games:] !{data.game_count}
-			li #[strong Copies:] !{data.gameinstance_count}
-			li #[strong Copies Available:] !{data.gameinstance_available_count}
-			li #[strong Publishers:] !{data.publisher_count}
-			li #[strong Genres:] !{data.genre_count}

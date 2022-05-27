@@ -66,6 +66,20 @@ p.userNameLink{
   font-weight: bold;
 }
 
+.carousel-container{
+  margin-left: 2px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border: 1px solid black;
+}
+
+.card{
+  margin-left: 2px;
+  width: 100px;
+  border: 1px solid black;
+}
+
 @media screen and (max-width: 1000px){
   .sidebar-nav{
     display: none;

@@ -15,7 +15,7 @@ const app = express();
 const router = express.Router();
 
 //database connection
-const mongoDB = 'mongodb+srv://admin:pass@cluster0.ubgm1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongoDB = 'mongodb+srv://admin:pass@cluster0.ubgm1.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 //Get the default connection
 var db = mongoose.connection;
@@ -52,4 +52,4 @@ app.use(function(err, req, res, next){
   res.render('error', {error: err});
 });
 
-module.exports = app;
+app.listen(3000);

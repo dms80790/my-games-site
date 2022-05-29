@@ -22,20 +22,10 @@ html(lang="en")
 					a(href=user.url) !{user.username}
 				a(href='/users/logout')
 					button#login-btn.btn.btn-primary Log Out
-		div(class='container-fluid')
-			div(class='row')
-				div(class='col-sm-2')
-					block sidebar
-						ul(class='sidebar-nav')
-							p.bold Platforms
-							li
-								a(href='/catalog/games') PlayStation 5
-							li
-								a(href='/catalog/publishers') XBox Series
-							li
-								a(href='/catalog/genres') Nintendo Switch
-							li
-								a(href='/catalog/gameinstances') PC						
-				<div class="clearfix visible-xs"></div>
-				div(class='col-sm-1-')
-					block content
+		div.topnav
+			a(class='active' href='') Home
+			a(href='/playstation') PlayStation
+			a(href='/xbox') XBOX
+			a(href='/nintendo') Nintendo
+			a(href='/pc') PC
+		block content

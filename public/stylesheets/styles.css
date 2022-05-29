@@ -36,8 +36,9 @@ body{
   height: 30px;
   border-radius: 8px;
   padding: 2px 12px;
-  color: gold;
+  color: white;
   font-weight: 700;
+  background-color: #04AA6D;
 }
 
 h2, h3{
@@ -67,17 +68,56 @@ p.userNameLink{
 }
 
 .carousel-container{
-  margin-left: 2px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+  margin-top: 50px;
+  padding: 0px 100px;
+  width: 100%;
+  height: 300px;
   border: 1px solid black;
+  overflow: hidden;
+}
+
+.card-container{
+  margin: 0 auto;
+  height: 300px;
+  border: 2px solid blue;
 }
 
 .card{
-  margin-left: 2px;
-  width: 100px;
+  display: inline-block;
+  min-width: 200px;
+  max-width: 200px;
   border: 1px solid black;
+  margin: 0px 20px;
+  height: 300px;
+}
+
+.topnav{
+  background-color: #333;
+  overflow: hidden;
+}
+
+.topnav a{
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover{
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active{
+  background-color: #04AA6D;
+  color: white;
+}
+
+.coverimg{
+  height: 100%;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px){

@@ -5,32 +5,14 @@ const GameInstance = require('../models/gameinstance');
 const Genre = require('../models/genre');
 const { body, validationResult } = require('express-validator');
 const api_callers = require('./api_callers');
+const CoverArt = require('../models/coverart');
 
 //publisher routes
 exports.get_home_page = function(req, res, next){
-  async.parallel({
-      game_count: function(callback){
-        Game.countDocuments({}, callback);
-      },
-      publisher_count: function(callback){
-        Publisher.countDocuments({}, callback);
-      },
-      gameinstance_count: function(callback){
-        GameInstance.countDocuments({}, callback);
-      },
-      gameinstance_available_count: function(callback){
-        GameInstance.countDocuments({'status': 'Available'}, callback);
-      },
-      genre_count: function(callback){
-        Genre.countDocuments({}, callback);
-      },
-    }, function(err, results){
-      if(err){ return next(err); }
-      req.session.cookie.name = "timmy longsmokes";
-      res.cookie('place', 'kennywood');
-      return res.render('index', {title: 'Game Library Home', data: results, error: err, user: req.session.user_id});
-    }
-  );
+  CoverArt.findOne({}, function(err, cover){
+    if(err){ return next(err); }
+    return res.render('index', {cover1: cover});
+  });
 }
 
 

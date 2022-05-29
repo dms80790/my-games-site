@@ -1,76 +1,119 @@
-const request = require('request')
-const UniversalPlatform = require('../models/universalplatform');
-const UniversalGame = require('../models/universalgame');
+const axios = require('axios');
+Game = require('../models/game');
+CoverArt = require('../models/coverart');
 
-const rawg_api_get_data = function(url){
-    return new Promise((resolve, reject) => {
-        request(url, {json: true}, (err, res, body) => {
-            if (err) reject(err);
-            resolve(body);
-        });
-    });
-}
-
-async function handle_rawg_res(url){
-    let results;
-
+const api_get_data = async function(options){
     try{
-        results = await rawg_api_get_data(url);
-    } catch(error){
-        console.log("Error: " + error);
+        const response = await axios(options);
+        return response.data;
+    } catch(err) {
+        console.error(err);
     }
-
-    console.log('/////////////////////////////////////////////')
-    return results.results;
 }
 
-exports.load_platforms = async function(){
-    let results = await handle_rawg_res('https://api.rawg.io/api/platforms?key=0563b91ec2664d40a9371b83c2fedce7'); 
+exports.load_games = async function(){
+    const options = {
+        headers: {
+        'Accept': 'application/json',
+        'Client-ID': 'rlireybc2vzfx754yy2ndlom4xx3gt',
+        'Authorization': 'Bearer h4s96pavrqvp3qcmwyq6sm9xq70ltx',
+        },
+        method: 'POST',
+        url: "https://api.igdb.com/v4/games",
+        data: 'fields name,platforms,age_ratings,aggregated_rating; limit 50; where name = "Destiny";'
+    };
+    
+    let results = await api_get_data(options);
 
     results.forEach(result => {
-        console.log(result.name + result.id);
-        UniversalPlatform.findOne({'name': result.name}, function(err, result_found){
-            if(err){ console.log('error searching for existing result') }
+        console.log(result);
+        Game.findOne({'name': result.name}, function(err, result_found){
+            if(err){ console.log('error searching for existing result'); }
             if(result_found != null){
-              console.log(result.name + ' already in the database.')
+              console.log(result.name + ' already in the database.');
             } else{
-                let platform = new UniversalPlatform({
+                let game = new Game({
                     name: result.name,
-                    numGames: result.games_count,
-                    releaseDate: result.year_start
+                    criticScore: result.aggregated_rating,
+                    rating: result.age_ratings,
+                    genres: result.genres,
+                    summary: result.summary,
+                    cover: result.cover,
+                    releaseDate: result.release_dates,
+                    platforms: result.platforms
                   });
-                platform.save(function(err){
+                /*game.save(function(err){
                     if(err){
-                        console.log('Error saving ' + result.name)
+                        console.log('Error saving ' + result.name);
                     } else{ 
                         console.log(result.name + ' saved successfully!');
                     };
-                });
+                });*/
+                console.log("made it to the end!");
             }
         });
     });
 }
 
-//currently loads N64 games
-exports.load_games = async function(){
+exports.load_covers = async function(){
+    const options = {
+        headers: {
+        'Accept': 'application/json',
+        'Client-ID': 'rlireybc2vzfx754yy2ndlom4xx3gt',
+        'Authorization': 'Bearer h4s96pavrqvp3qcmwyq6sm9xq70ltx',
+        },
+        method: 'POST',
+        url: "https://api.igdb.com/v4/covers",
+        data: 'fields game,height,url,width; limit 10; where game = 1939;'
+    };
+    
+    let results = await api_get_data(options);
+
+    results.forEach(result => {
+        console.log(result);
+        CoverArt.findOne({'game': result.game}, function(err, result_found){
+            if(err){ console.log('error searching for existing result'); }
+            if(result_found != null){
+              console.log(result.game + ' already in the database.');
+            } else{
+                let coverart = new CoverArt({
+                    game: result.game,
+                    uri: result.url,
+                    height: result.height,
+                    width: result.width,
+                  });
+                coverart.save(function(err){
+                    if(err){
+                        console.log('Error saving ' + result.game);
+                    } else{ 
+                        console.log(result.game + ' saved successfully!');
+                    };
+                });
+            }
+            
+        });
+        console.log("made it to the end!");
+    });
+}
+
+/*currently loads image urls
+exports.load_games2 = async function(){
     let results = 1;
     let pageNum = 1;
     while(pageNum < 10){
         results = await handle_rawg_res('https://api.rawg.io/api/games?key=0563b91ec2664d40a9371b83c2fedce7&platforms=83&page_size=25&page=' + pageNum);
         results.forEach(result => {
-            UniversalGame.findOne({'name': result.name}, function(err, result_found){
+            UniversalGame.findOne({'url': result.url}, function(err, result_found){
                 if(err){ console.log('error searching for existing result') }
                 if(result_found != null){
-                    console.log(result.name + ' already in the database.')
+                    console.log(result.url + ' image is already in the database.')
                 } else{
                     let game = new UniversalGame({
-                        name: result.name,
-                        rating: result.rating,
-                        metacritic: result.metacritic
+                        url: result.url,
                     });
                     game.save(function(err){
                         if(err){
-                            console.log('Error saving ' + result.name)
+                            console.log('Error saving ' + result.url)
                         } else{ 
                             console.log(result.name + ' saved successfully!');
                         };
@@ -81,4 +124,5 @@ exports.load_games = async function(){
         pageNum++;
     }
 }
+*/
 module.exports;

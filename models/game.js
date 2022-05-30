@@ -5,12 +5,12 @@ const { DateTime } = require('luxon');
 const GameSchema = new Schema({
   name: {type: String, required: true, maxLength: 100},
   criticScore: {type: Number, required: false},
-  ratings: [{type: Schema.Types.ObjectId, ref: 'AgeRatings'}],
-  genres: [{type: Schema.Types.ObjectId, ref: 'Genre'}],
+  ratings: [{type: Number}],
+  genres: [{type: Number}],
   summary: {type: String, required: false},
-  platforms: [{type: Schema.Types.ObjectId, ref: 'Platform'}],
-  cover: {type: Schema.Types.ObjectId, ref: 'CoverArt'},
-  releaseDate: [{type: Schema.Types.ObjectId, ref: 'ReleaseDate'}]
+  platforms: [{type: String, maxLength: 100}],
+  cover: {type: Number},
+  releaseDate: [{type: Number}]
 });
 
 GameSchema.virtual('url').get(function(){

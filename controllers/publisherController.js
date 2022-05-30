@@ -1,7 +1,6 @@
 const async = require('async');
 const Game = require('../models/game');
 const Publisher = require('../models/publisher');
-const GameInstance = require('../models/gameinstance');
 const Genre = require('../models/genre');
 const { body, validationResult } = require('express-validator');
 const api_callers = require('./api_callers');
@@ -9,10 +8,14 @@ const CoverArt = require('../models/coverart');
 
 //publisher routes
 exports.get_home_page = function(req, res, next){
-  CoverArt.findOne({}, function(err, cover){
+  api_callers.load_games();
+  /*CoverArt.findOne({}, function(err, cover){
     if(err){ return next(err); }
-    return res.render('index', {cover1: cover});
+    console.log('found one' + cover.uri);
+    return res.render('index', {cover1: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + cover.uri + '.png'});
   });
+  */
+ res.render('index');
 }
 
 

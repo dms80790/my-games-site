@@ -9,7 +9,7 @@ const CoverArtSchema = new Schema({
 });
 
 CoverArtSchema.virtual('url').get(function(){
-  return '/catalog/game/' + this._id;
+  return 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this._uri + '.png';
 });
 
 /*

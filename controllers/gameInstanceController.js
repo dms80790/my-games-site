@@ -1,4 +1,3 @@
-const GameInstance = require('../models/gameinstance');
 const Game = require('../models/game');
 const async = require('async');
 const { body, validationResult } = require('express-validator');

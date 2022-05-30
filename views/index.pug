@@ -3,7 +3,6 @@ extends layout
 block content
 	div.carousel-container
 		div.card-containter
-				img.coverimg(src=cover1)
-			div.card 
-			div.card 
-			div.card 
+			each game in games_list
+				div.card
+					img.coverimg(src=game.cover_url)

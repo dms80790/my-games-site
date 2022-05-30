@@ -9,12 +9,16 @@ const GameSchema = new Schema({
   genres: [{type: Number}],
   summary: {type: String, required: false},
   platforms: [{type: String, maxLength: 100}],
-  cover: {type: Number},
+  cover_img_id: {type: String},
   releaseDate: [{type: Number}]
 });
 
 GameSchema.virtual('url').get(function(){
   return '/catalog/game/' + this._id;
+});
+
+GameSchema.virtual('cover_url').get(function(){
+  return 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.cover_img_id + '.png';
 });
 
 /*

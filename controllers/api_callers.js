@@ -1,6 +1,5 @@
 const axios = require('axios');
 Game = require('../models/game');
-CoverArt = require('../models/coverart');
 Platform = require('../models/platform');
 
 const api_get_data = async function(options){
@@ -52,47 +51,6 @@ exports.load_games = async function(){
                 });
             }
         });
-    });
-}
-
-exports.load_covers = async function(){
-    const options = {
-        headers: {
-        'Accept': 'application/json',
-        'Client-ID': 'rlireybc2vzfx754yy2ndlom4xx3gt',
-        'Authorization': 'Bearer h4s96pavrqvp3qcmwyq6sm9xq70ltx',
-        },
-        method: 'POST',
-        url: "https://api.igdb.com/v4/covers",
-        data: 'fields game,height,image_id,width; limit 10;'
-    };
-    
-    let results = await api_get_data(options);
-
-    results.forEach(result => {
-        CoverArt.findOne({'game': 'America'}, function(err, result_found){
-            if(err){ console.log('error searching for existing result'); }
-            if(result_found != null){
-              console.log(result.game + ' already in the database.');
-            } else{
-                console.log('found!');
-                let coverart = new CoverArt({
-                    game: result.game,
-                    uri: result.image_id,
-                    height: result.height,
-                    width: result.width,
-                  });
-                coverart.save(function(err){
-                    if(err){
-                        console.log('Error saving ' + result.game);
-                    } else{ 
-                        console.log(result.game + ' saved successfully!');
-                    };
-                });
-            }
-            
-        });
-        console.log("made it to the end!");
     });
 }
 

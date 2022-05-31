@@ -1,11 +1,10 @@
 const express =  require('express');
 const router = express.Router();
 
-const game_controller = require('../controllers/gameController');
-const publisher_controller = require('../controllers/publisherController');
-const genre_controller = require('../controllers/genreController');
-const platform_controller = require('../controllers/platformController');
-const user_controller = require('../controllers/userController');
+const game_controller = require('../controllers/game_controller');
+const publisher_controller = require('../controllers/publisher_controller');
+const platform_controller = require('../controllers/platform_controller');
+const user_controller = require('../controllers/user_controller');
 const api_controller = require('../controllers/api_callers');
 
 //home page route
@@ -32,12 +31,12 @@ router.get('/nintendo/n64', user_controller.checkAuth, platform_controller.get_n
 router.get('/nintendo/gamecube', user_controller.checkAuth, platform_controller.get_gamecube_home);
 router.get('/nintendo/wii', user_controller.checkAuth, platform_controller.get_wii_home);
 router.get('/nintendo/wiiu', user_controller.checkAuth, platform_controller.get_wiiu_home);
-outer.get('/nintendo/switch', user_controller.checkAuth, platform_controller.get_switch_home);
+router.get('/nintendo/switch', user_controller.checkAuth, platform_controller.get_switch_home);
 
 router.get('/pc', user_controller.checkAuth, platform_controller.get_pc_home);
 
 //game routes
-router.get('/game/:id/', game_controller.get_game);
-router.get('/games', game_controller.get_game_list);
+router.get('/:company/:platform/:id', game_controller.get_game);
+router.post('/:company/:platform/:id', game_controller.post_game);
 
 module.exports = router;

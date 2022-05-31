@@ -22,10 +22,38 @@ html(lang="en")
 					a(href=user.url) !{user.username}
 				a(href='/users/logout')
 					button#login-btn.btn.btn-primary Log Out
-		div.topnav
-			a(class='active' href='') Home
-			a(href='/playstation') PlayStation
-			a(href='/xbox') XBOX
-			a(href='/nintendo') Nintendo
-			a(href='/pc') PC
+		div.navbar
+			a(href="#home") Home
+			div.dropdown
+				button.dropbtn PlayStation
+					i(class="fa fa-caret-down")
+				div.dropdown-content
+					a(href="#") PlayStation 1
+					a(href="#") PlayStation 2
+					a(href="#") PlayStation 3
+					a(href="#") PlayStation 4
+					a(href="#") PlayStation 5
+			div.dropdown
+				button.dropbtn XBOX
+					i(class="fa fa-caret-down")
+				div.dropdown-content
+					a(href="#") XBOX
+					a(href="#") XBOX 360
+					a(href="#") XBOX One
+					a(href="#") XBox Series
+			div.dropdown
+				button.dropbtn Nintendo
+					i(class="fa fa-caret-down")
+				div.dropdown-content
+					a(href="#") NES
+					a(href="#") SNES
+					a(href="#") N64
+					a(href="#") GameCube
+					a(href="#") Wii
+					a(href="#") Wii U
+					a(href="#") Switch
+			a(href="#") PC	
+		
 		block content
+		div.footer
+			p @author David Stropkey 2022, utilizes IGDB API 

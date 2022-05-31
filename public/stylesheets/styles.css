@@ -37,18 +37,17 @@ body{
 
 /* Navbar container */
 .navbar {
-  overflow: hidden;
   background-color: #333;
   font-family: Arial;
   padding: 0 0;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
+  overflow: visible;
 }
 
 /* Links inside the navbar */
 .navbar a {
-  float: left;
   font-size: 16px;
   color: white;
   text-align: center;
@@ -59,14 +58,14 @@ body{
 
 /* The dropdown container */
 .dropdown {
-  overflow: hidden;
+  position: relative;
+  display: inline-block;
 }
 
 /* Dropdown button */
 .dropdown .dropbtn {
+  border: 0;
   font-size: 16px;
-  border: none;
-  outline: none;
   color: white;
   padding: 14px 16px;
   background-color: inherit;
@@ -93,7 +92,6 @@ body{
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  float: none;
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -103,11 +101,12 @@ body{
 
 /* Add a grey background color to dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #ddd;
+  background-color: #333;
+  color: white;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.dropbtn:hover .dropdown-content {
   display: block;
 }
 
@@ -162,7 +161,7 @@ body{
   padding: 8px 12px;
 }
 
-.card:hover{
+.card:hover .card-text{
   text-decoration: underline;
 }
 

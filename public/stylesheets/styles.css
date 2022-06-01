@@ -90,6 +90,7 @@ body{
   z-index: 2;
   overflow: hidden;
   top: 100%;
+  border-radius: 4px;
 }
 
 /* Links inside the dropdown */
@@ -99,6 +100,7 @@ body{
   padding: 12px 16px;
   text-decoration: none;
   text-align: left;
+  border-radius: 4px;
 }
 
 /* Add a grey background color to dropdown links on hover */
@@ -185,6 +187,10 @@ p.userNameLink{
 
 .bold{
   font-weight: bold;
+}
+
+.centered{
+  text-align: center;
 }
 
 .footer{

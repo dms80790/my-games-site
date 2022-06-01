@@ -12,84 +12,104 @@ const async = require('async');
           });
 }*/
 
+function get_platform_home(platformNum, platformName, req, res, next){
+  Game.find({'platforms': platformNum})
+      .limit(4)
+      .exec(function(err, games){
+        if(err){ return next(err); }
+        if(games){
+        return res.render('company_home', {title: platformName, games_list: games});
+        }
+        else{ return res.send('No games loaded'); }
+      });
+}
+
 exports.get_playstation_home = function(req, res, next){
-  res.send('under construction!');
+  Game.find({'platforms': 48})
+      .limit(4)
+      .exec(function(err, games){
+        if(err){ return next(err); }
+        if(games){
+        return res.render('company_home', {title: games[0].platforms.name, games_list: games});
+        }
+        else{ return res.send('No games loaded'); }
+      });
 }
 
 exports.get_ps1_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(7, 'PlayStation 1', req, res, next);
 }
 
 exports.get_ps2_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(8, 'PlayStation 2', req, res, next);
 }
 
 exports.get_ps3_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(9, 'PlayStation 3', req, res, next);
 }
 
 exports.get_ps4_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(48, 'PlayStation 4', req, res, next);
 }
 
 exports.get_ps5_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(167, 'PlayStation 5', req, res, next);
 }
 
 exports.get_xbox_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(11, 'XBOX', req, res, next);
 }
 
 exports.get_xboxxbox_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(11, 'XBOX', req, res, next);
 }
 
 exports.get_xbox360_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(12, 'XBOX 360', req, res, next);
 }
 
 exports.get_xboxone_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(49, 'XBOX One', req, res, next);
 }
 
 exports.get_xboxseries_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(169, 'XBOX Series X|S', req, res, next);
 }
 
 exports.get_nintendo_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(18, 'Nintendo', req, res, next);
 }
 
 exports.get_nes_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(18, 'Nintendo Entertainment System', req, res, next);
 }
 
 exports.get_snes_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(19, 'Super Nintendo Entertainment System', req, res, next);
 }
 
 exports.get_n64_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(4, 'Nintendo 64', req, res, next);
 }
 
 exports.get_gamecube_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(21, 'Nintendo GameCube', req, res, next);
 }
 
 exports.get_wii_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(5, 'Nintendo Wii', req, res, next);
 }
 
 exports.get_wiiu_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(41, 'Nintendo Wii U', req, res, next);
 }
 
 exports.get_switch_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(130, 'Nintendo Switch', req, res, next);
 }
 
 exports.get_pc_home = function(req, res, next){
-  res.send('under construction!');
+  get_platform_home(6, 'PC', req, res, next);
 }
 
 module.exports;

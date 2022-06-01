@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1.centered=title
+    div.carousel-container
+        div.card-containter
+            each game in games_list
+                a(href='/game/' + game._id)
+                    div.card
+                        div.card-cover
+                            h3.card-text #{game.name}
+                        img.coverimg(src=game.cover_url)
+    block content2

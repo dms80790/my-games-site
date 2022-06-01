@@ -20,7 +20,7 @@ exports.load_games = async function(){
         },
         method: 'POST',
         url: "https://api.igdb.com/v4/games",
-        data: 'fields name,platforms,age_ratings,aggregated_rating, cover.image_id; limit 100; where cover != null & follows > 100; sort: releaseDate desc;',
+        data: 'fields name,platforms,age_ratings,aggregated_rating, cover.image_id; limit 100; where cover != null & platforms = 8;',
     };
     
     let results = await api_get_data(options);

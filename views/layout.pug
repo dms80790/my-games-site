@@ -10,6 +10,8 @@ html(lang="en")
 		link(rel="preconnect" href="https://fonts.googleapis.com")
 		link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
 		link(href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet")
+		link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0")
+		style(type='text/css') .material-symbols-outlined{font-size: 16px}
 	body
 		div.header
 			a(href='/catalog')
@@ -25,8 +27,8 @@ html(lang="en")
 		div.navbar
 			a(href="#home") Home
 			div.dropdown
-				button.dropbtn PlayStation
-					i(class="fa fa-caret-down")
+				button.dropbtn PlayStation 
+					span(class="material-symbols-outlined icons") expand_more
 				div.dropdown-content
 					a(href="/catalog/playstation/ps1") PlayStation 1
 					a(href="/catalog/playstation/ps2") PlayStation 2
@@ -34,16 +36,16 @@ html(lang="en")
 					a(href="/catalog/playstation/ps4") PlayStation 4
 					a(href="/catalog/playstation/ps5") PlayStation 5
 			div.dropdown
-				button.dropbtn XBOX
-					i(class="fa fa-caret-down")
+				button.dropbtn XBOX 
+					span(class="material-symbols-outlined icons") expand_more
 				div.dropdown-content
 					a(href="/catalog/xbox/xbox") XBOX
 					a(href="/catalog/xbox/xbox360") XBOX 360
 					a(href="/catalog/xbox/xboxone") XBOX One
 					a(href="/catalog/xbox/xboxseries") XBox Series
 			div.dropdown
-				button.dropbtn Nintendo
-					i(class="fa fa-caret-down")
+				button.dropbtn Nintendo 
+					span(class="material-symbols-outlined icons") expand_more
 				div.dropdown-content
 					a(href="/catalog/nintendo/nes") NES
 					a(href="/catalog/nintendo/snes") SNES

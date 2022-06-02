@@ -1,7 +1,4 @@
 const Game = require('../models/game');
-const Genre = require('../models/genre');
-const Publisher = require('../models/publisher');
-const Platform = require('../models/platform');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
 
@@ -34,7 +31,12 @@ exports.get_game = function(req, res, next){
 */
 
 exports.get_game = function(req, res, next){
-  res.send("Under construction!");
+  Game.findById(req.params.id, function(err, result){
+    if(err){ return next(err); }
+    if(result){
+      res.render('game_detail', {game: result})
+    }
+  })
 }
 
 exports.post_game = function(req, res, next){

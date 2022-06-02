@@ -185,6 +185,29 @@ p.userNameLink{
   margin-right: 10px;
 }
 
+.list-container{
+  width: 100%;
+  display:block;
+}
+
+.list-card-screenshot{
+  width: 15%;
+  display: inline-block;
+}
+
+.list-card-screenshot img{
+  height: 100px;
+  width: 133px;
+}
+
+.game-background-top{
+  display: block;
+  height: 25%;
+  z-index: -1;
+  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  filter: blur(5px);
+}
+
 .bold{
   font-weight: bold;
 }

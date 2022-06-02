@@ -12,13 +12,18 @@ const async = require('async');
           });
 }*/
 
+//note: currently uses a random number to skip a random number of games in the result
 function get_platform_home(platformNum, platformName, req, res, next){
+  let rand = Math.floor(Math.random() * 50);
+  console.log(rand);
   Game.find({'platforms': platformNum})
+      .skip(rand)
       .limit(4)
+      .populate(platforms)
       .exec(function(err, games){
         if(err){ return next(err); }
         if(games){
-        return res.render('company_home', {title: platformName, games_list: games});
+        return res.render('platform_home', {title: platformName, games_list: games});
         }
         else{ return res.send('No games loaded'); }
       });

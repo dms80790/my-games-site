@@ -1,26 +1,9 @@
-extends layout
+extends layout 
 
-block content
-  h1 #{title} !{game.title}
-  p(style='max-width:900px') #[strong Summary: ] !{game.description}
-  p #[strong Genre(s): ]
-    each genre, index in game.genre
-      a(href=genre.url) !{genre.name}
-      if index < game.genre.length-1
-        |,
-  p #[strong Release Date: ]
-    | !{game.release_date_formatted}
-  p #[strong Publisher: ]
-    a(href=game.publisher.url) !{game.publisher.name}
-  p #[strong Platform(s): ]
-    each platform, index in game.platform
-        a(href=platform.url) !{platform.name}
-        if index < game.platform.length-1
-          |,
+block content 
 
-  hr
-  p
-    a(href=game.url+'/delete') Delete Game
-  hr
-  p
-    a(href=game.url+'/update') Update Game
+div.game-background-top 
+    img(src = game.cover_url)
+
+h1=game.name
+

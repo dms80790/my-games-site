@@ -203,9 +203,29 @@ p.userNameLink{
 .game-background-top{
   display: block;
   height: 25%;
+  width: 100%;
   z-index: -1;
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
   filter: blur(5px);
+}
+
+form label{
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+form button{
+  margin: 5px 5px;
+}
+
+input#username{
+  margin: 5px 20px;
+  width: 75%;
+}
+
+input#password{
+  margin: 5px 20px;
+  width: 75%;
 }
 
 .bold{

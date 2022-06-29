@@ -19,7 +19,6 @@ function get_platform_home(platformNum, platformName, req, res, next){
   Game.find({'platforms': platformNum})
       .skip(rand)
       .limit(4)
-      .populate(platforms)
       .exec(function(err, games){
         if(err){ return next(err); }
         if(games){
@@ -35,7 +34,7 @@ exports.get_playstation_home = function(req, res, next){
       .exec(function(err, games){
         if(err){ return next(err); }
         if(games){
-        return res.render('company_home', {title: games[0].platforms.name, games_list: games});
+        return res.render('platform_home', {title: games[0].platforms.name, games_list: games});
         }
         else{ return res.send('No games loaded'); }
       });

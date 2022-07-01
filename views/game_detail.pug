@@ -2,8 +2,20 @@ extends layout
 
 block content 
 
-    div.game-background-top 
-        img(src = game.cover_url)
+    div.game-header-container
+        div.game-cover-box
+            img(src=game.cover_url)
+        div.game-info-box
+            h1= game.name
+            p First released
+            p Platforms 
+            button.btn.btn-primary Follow
+        div.game-review-info
+            dt User Score
+                dd.review-circle 8
+            dt Critic Score
+                dd.review-circle 9
+            
 
-    h1=game.name
+
 

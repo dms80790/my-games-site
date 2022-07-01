@@ -63,7 +63,7 @@ exports.load_games = async function(){
         },
         method: 'POST',
         url: "https://api.igdb.com/v4/games",
-        data: 'fields name,platforms,age_ratings,aggregated_rating, cover.image_id; limit: 10; where cover != null & platforms = 4; offset: 100; '
+        data: 'fields name, artworks, platforms,age_ratings,aggregated_rating, cover.image_id; limit: 100; where cover != null & platforms = 7; offset: 100; '
     };
     
     let results = await api_get_data(options);
@@ -83,7 +83,8 @@ exports.load_games = async function(){
                     summary: result.summary,
                     releaseDate: result.release_dates,
                     platforms: result.platforms,
-                    cover_img_id: result.cover.image_id
+                    cover_img_id: result.cover.image_id,
+                    artworks: result.artworks
                   });
                 game.save(function(err){
                     if(err){
@@ -91,16 +92,12 @@ exports.load_games = async function(){
                         console.log(err);
                     } else{ 
                         console.log(result.name + ' saved successfully!');
-                        result.platforms.forEach(platform => {
-                            if(!platform_array.includes(platform)){
-                                platform_array.push(platform);
-                            }
-                        });
+                        
                     }
                 });
             }
         });
     });
-    load_platforms(platform_array);
+    //load_platforms(platform_array);
 }
 module.exports;

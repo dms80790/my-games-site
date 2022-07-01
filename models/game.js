@@ -10,7 +10,8 @@ const GameSchema = new Schema({
   summary: {type: String, required: false},
   platforms: [{type: String, maxLength: 100}],
   cover_img_id: {type: String},
-  releaseDate: [{type: Number}]
+  releaseDate: [{type: Number}],
+  artworks: [{type: String}]
 });
 
 GameSchema.virtual('url').get(function(){

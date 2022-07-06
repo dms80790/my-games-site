@@ -7,15 +7,45 @@ block content
             img(src=game.cover_url)
         div.game-info-box
             h1= game.name
-            p First released
-            p Platforms 
-            button.btn.btn-primary Follow
+            p First released: #{game.releaseDate[0]}
+            p Platforms: 
+                each platform in game.platforms
+                    a(href='') #{platform.name}    
+            button.btn.btn-primary.red Follow
+            span(class="material-symbols-outlined icons thumb_icon") thumb_up
+            span #{game.upVotes} 324
+            span(class="material-symbols-outlined icons thumb_icon") thumb_down
+            span #{game.downVotes} 4
         div.game-review-info
             dt User Score
                 dd.review-circle 8
             dt Critic Score
                 dd.review-circle 9
+
+    div.game-media-container
+
+    div.game-detail-flex-container
+        div.game-detail-container-left
+            div.game-summary
+                if(game.summary != null)
+                    p #{game.summary}
+                else 
+                    p This game does not have a summary yet. 
+                        a(href='') Log In 
+                        span to add one.
+            hr
+            div.game-user-review-container
+                p Write a Review!
+                textarea(id= 'review-text-area' name="review-text-area", cols="100", rows="6")
             
+            div.game-friend-reviews-container
+                h3.bold Friend Reviews
+                //-each review in friend_reviews 
+                    dt #{review.username}
+                        dd #{review.content}
+        div.game-detail-container-right
+            div.game-detail-critic-reviews
+                h3.bold Critic Reviews
+                p IGN
 
-
-
+            

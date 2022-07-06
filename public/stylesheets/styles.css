@@ -227,6 +227,7 @@ p.userNameLink{
 
 .game-header-container div.game-review-info{
   margin-left: auto;
+  margin-right: 20px;
 }
 
 .game-header-container div.game-review-info dd.review-circle{
@@ -242,6 +243,17 @@ p.userNameLink{
     margin-top: 5px;
 }
 
+.game-detail-flex-container{
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 5px 5px;
+  justify-content: space-between;
+}
+
+.game-detail-container-right{
+  width: 300px;
+}
+
 form label{
   font-weight: 700;
   margin-left: 5px;
@@ -249,6 +261,12 @@ form label{
 
 form button{
   margin: 5px 5px;
+}
+
+.thumb_icon{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 input#username{
@@ -259,6 +277,11 @@ input#username{
 input#password{
   margin: 5px 20px;
   width: 75%;
+}
+
+#review-text-area{
+  margin: 6px 12px;
+  font-size: 14px;
 }
 
 .bold{
@@ -274,6 +297,10 @@ input#password{
   position: absolute;
   right: 4px;
   bottom: 4px;
+}
+
+.red{
+  background-color: #de004a;
 }
 
 @media screen and (max-width: 1000px){

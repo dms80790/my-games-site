@@ -294,6 +294,42 @@ input#password{
   font-size: 14px;
 }
 
+.icon{
+  width: 25px;
+  height: 25px;
+  content: ' ';
+  object-fit: fill;
+  border-radius: 5px;
+}
+
+.icon-official{
+  background-image: url('../icons/external.svg');
+}
+
+.icon-facebook{
+  background-image: url('../icons/facebook.svg');
+}
+
+.icon-reddit{
+  background-image: url('../icons/reddit.svg');
+}
+
+.icon-twitter{
+  background-image: url('../icons/twitter.svg');
+}
+
+.icon-wiki{
+  background-image: url('../icons/wiki.svg');
+}
+
+.icon-youtube{
+  background-image: url('../icons/youtube.svg');
+}
+
+.icon-twitch{
+  background-image: url('../icons/twitch.svg');
+}
+
 .bold{
   font-weight: bold;
 }

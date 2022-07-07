@@ -5,13 +5,14 @@ const { DateTime } = require('luxon');
 const GameSchema = new Schema({
   name: {type: String, required: true, maxLength: 100},
   criticScore: {type: Number, required: false},
+  numCriticScores: {type: Number},
   ratings: [{type: Number}],
   genres: [{type: Number}],
   summary: {type: String, required: false},
   platforms: [{type: String, maxLength: 100}],
   cover_img_id: {type: String},
-  releaseDate: [{type: Number}],
-  artworks: [{type: String}]
+  screenshots: [{id: String, image_id: String}],
+  releaseDate: [{id: String, date: Date}],
 });
 
 GameSchema.virtual('url').get(function(){
@@ -20,6 +21,10 @@ GameSchema.virtual('url').get(function(){
 
 GameSchema.virtual('cover_url').get(function(){
   return 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.cover_img_id + '.png';
+});
+
+GameSchema.virtual('screenshot_url').get(function(i){
+  return 'https://images.igdb.com/igdb/image/upload/t_thumb_widescreen_large/' + this.screenshots[i] + '.png';
 });
 
 /*

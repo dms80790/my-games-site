@@ -21,15 +21,13 @@ function get_platform_home(platformNum, platformName, req, res, next){
       .limit(4)
       .exec(function(err, games){
         if(err){ return next(err); }
-        if(games){
-        return res.render('platform_home', {title: platformName, games_list: games});
-        }
+        if(games){ return res.render('platform_home', {title: platformName, games_list: games}); }
         else{ return res.send('No games loaded'); }
       });
 }
 
 exports.get_playstation_home = function(req, res, next){
-  Game.find({'platforms': 48})
+  Game.find({'platforms': "48"})
       .limit(4)
       .exec(function(err, games){
         if(err){ return next(err); }

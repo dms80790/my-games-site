@@ -15,7 +15,7 @@ exports.get_home_page = function(req, res, next){
         }
         else{ res.render('index', {cover1: 'https://images.igdb.com/igdb/image/'});}
       }); 
-  
+    
     //res.send('loaded');    
 }
 

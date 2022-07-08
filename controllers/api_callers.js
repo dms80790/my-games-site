@@ -77,7 +77,7 @@ exports.load_games = async function(){
             } else{
                 let game = new Game({
                     name: result.name,
-                    criticScore: result.aggregated_rating,
+                    criticScore: Math.round(result.aggregated_rating),
                     numCriticScores: result.aggregated_rating_count,
                     rating: result.age_ratings,
                     genres: result.genres,

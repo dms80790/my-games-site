@@ -12,7 +12,7 @@ const GameSchema = new Schema({
   platforms: [{type: String, maxLength: 100}],
   cover_img_id: {type: String},
   screenshots: [{id: String, image_id: String}],
-  releaseDate: [{id: String, date: Date}],
+  releaseDate: [{id: String, date: Number}],
 });
 
 GameSchema.virtual('url').get(function(){
@@ -21,6 +21,10 @@ GameSchema.virtual('url').get(function(){
 
 GameSchema.virtual('cover_url').get(function(){
   return 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.cover_img_id + '.png';
+});
+
+GameSchema.virtual('date_formatted').get(function(){
+  return DateTime.fromSeconds(this.releaseDate[0].date).toLocaleString(DateTime.DATE_FULL);
 });
 
 GameSchema.methods.getScreenshotUrl = function(i){

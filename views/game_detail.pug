@@ -7,7 +7,7 @@ block content
             img(src=game.cover_url)
         div.game-info-box
             h1= game.name
-            p First released: #{game.releaseDate[0].date}
+            p First released: #{game.date_formatted}
             p Platforms: 
                 each platform in game.platforms
                     a(href='') #{platform.name}    

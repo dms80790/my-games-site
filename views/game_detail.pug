@@ -20,7 +20,11 @@ block content
             dt User Score
                 dd.review-circle 8
             dt Critic Score
-                dd.review-circle 9
+                if game.criticScore != null
+                    dd.review-circle #{game.criticScore}
+                    dd.small-text Based on #{game.numCriticScores} critic ratings
+                else 
+                    dd.review-circle N/A
 
     div.game-media-container
         each screenshot, i in game.screenshots 

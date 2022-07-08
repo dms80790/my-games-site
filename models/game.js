@@ -23,9 +23,9 @@ GameSchema.virtual('cover_url').get(function(){
   return 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.cover_img_id + '.png';
 });
 
-GameSchema.virtual('screenshot_url').get(function(i){
-  return 'https://images.igdb.com/igdb/image/upload/t_thumb_widescreen_large/' + this.screenshots[i] + '.png';
-});
+GameSchema.methods.getScreenshotUrl = function(i){
+  return 'https://images.igdb.com/igdb/image/upload/t_thumb_widescreen_large/' + this.screenshots[i].image_id + '.png';
+};
 
 /*
 GameSchema.virtual('release_date_formatted').get(function(){

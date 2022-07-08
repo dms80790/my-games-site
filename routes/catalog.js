@@ -36,7 +36,7 @@ router.get('/nintendo/switch', user_controller.checkAuth, platform_controller.ge
 router.get('/pc', user_controller.checkAuth, platform_controller.get_pc_home);
 
 //game routes
-router.get('/:company/:platform/:id', game_controller.get_game);
+router.get('/:platform/:id', game_controller.get_game);
 router.post('/:company/:platform/:id', game_controller.post_game);
 
 module.exports = router;

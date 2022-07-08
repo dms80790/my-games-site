@@ -4,7 +4,7 @@ block content
     div.carousel-container
         div.card-containter
             each game in games_list
-                a(href=game.platforms[0] + '/' + game._id)
+                a(href='/catalog/' + game.platforms[0] + '/' + game._id)
                     div.card
                         div.card-cover
                             h3.card-text #{game.name}

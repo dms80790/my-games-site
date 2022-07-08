@@ -17,7 +17,7 @@ function get_platform_home(platformNum, platformName, req, res, next){
   let rand = Math.floor(Math.random() * 50);
   console.log(rand);
   Game.find({'platforms': platformNum})
-      .skip(rand)
+      //.skip(rand)
       .limit(4)
       .exec(function(err, games){
         if(err){ return next(err); }

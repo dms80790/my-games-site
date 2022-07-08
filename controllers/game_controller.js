@@ -31,6 +31,7 @@ exports.get_game = function(req, res, next){
 */
 
 exports.get_game = function(req, res, next){
+  console.log('in get_game');
   Game.findById(req.params.id, function(err, result){
     if(err){ return next(err); }
     if(result){

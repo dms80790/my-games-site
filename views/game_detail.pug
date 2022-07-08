@@ -7,7 +7,7 @@ block content
             img(src=game.cover_url)
         div.game-info-box
             h1= game.name
-            p First released: #{game.releaseDate[0]}
+            p First released: #{game.releaseDate[0].date}
             p Platforms: 
                 each platform in game.platforms
                     a(href='') #{platform.name}    
@@ -23,10 +23,14 @@ block content
                 dd.review-circle 9
 
     div.game-media-container
+        each screenshot, i in game.screenshots 
+            div.screenshot-container
+                img(src= game.getScreenshotUrl(i))
 
     div.game-detail-flex-container
         div.game-detail-container-left
             div.game-summary
+                h3.bold Summary
                 if(game.summary != null)
                     p #{game.summary}
                 else 

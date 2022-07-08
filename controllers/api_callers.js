@@ -84,7 +84,7 @@ exports.load_games = async function(){
                     summary: result.summary,
                     releaseDate: result.release_dates,
                     platforms: result.platforms,
-                    screenshots: results.screenshots,
+                    screenshots: result.screenshots,
                     cover_img_id: result.cover.image_id,
                   });
                 game.save(function(err){
